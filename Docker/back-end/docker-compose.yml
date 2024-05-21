@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  panda-db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=panda
+      - MYSQL_ROOT_PASSWORD=nguyenkhanh2kpi
+    ports:
+      - '3388:3306'
+    expose:
+      - 3306
+    networks:
+      - panda_network
+    
+  panda-backend:
+    build:
+      context: ../../Back_end
+      dockerfile: Dockerfile
+    depends_on:
+      - panda-db
+    restart: always
+    ports:
+      - "8076:8080"
+    environment:
+      spring.datasource.url: jdbc:mysql://panda-db:3306/panda?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+      spring.datasource.username: root
+      spring.datasource.password: nguyenkhanh2kpi
+      spring.jpa.hibernate.ddl-auto: update
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    networks:
+      - panda_network
+
+networks:
+  panda_network:
+    driver: bridge

@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  panda-db:
+    image: mysql:8.3
+    restart: always
+    environment:
+      - MYSQL_DATABASE=panda
+      - MYSQL_ROOT_PASSWORD=nguyenkhanh2kpi
+    ports:
+      - '3388:3306'
