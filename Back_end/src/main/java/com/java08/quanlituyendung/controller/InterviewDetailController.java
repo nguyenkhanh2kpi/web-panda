@@ -44,9 +44,18 @@ public class InterviewDetailController {
         return iInterviewDetailService.markCandidate(request, authentication);
     }
 
+
+
     @Operation(summary = "Thay đổi trạng thái")
     @PostMapping("/hiring-status/{detailId}")
     public ResponseEntity<ResponseObject> changeHiringStatus(@PathVariable Long detailId, @RequestBody RoomStatusDTO status, Authentication authentication){
         return  iInterviewDetailService.changeStatus(detailId,status.getStatus(),authentication);
     }
+
+    @Operation(summary = "Xóa 1 ứng viên khỏi phòng")
+    @DeleteMapping("/{detailId}")
+    public ResponseEntity<ResponseObject> deleteCandidate(@PathVariable Long detailId, Authentication authentication){
+        return  iInterviewDetailService.deleteCandidate(detailId,authentication);
+    }
+
 }

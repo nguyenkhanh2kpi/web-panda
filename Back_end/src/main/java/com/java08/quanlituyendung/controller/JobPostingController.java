@@ -32,6 +32,13 @@ public class JobPostingController {
     public ResponseEntity<ResponseObject> createJobPosting(@RequestBody JobPostingDTO request, Authentication authentication) {
         return jobPostingService.save(request, authentication);
     }
+
+    @Operation(summary = "Lấy danh sách công việc của tôi")
+    @GetMapping(value = "/my-job")
+    public ResponseEntity<ResponseObject> getMyJobs(Authentication authentication) {
+        return jobPostingService.getMyJobs(authentication);
+    }
+
     @Operation(summary = "Sử dụng phương thức này để cập nhật job posting theo từng id")
     @PutMapping(value = "/{id}")
     public ResponseEntity<ResponseObject> updateJobPosting(@RequestBody JobPostingDTO request, @PathVariable long id, Authentication authentication) {
@@ -42,5 +49,15 @@ public class JobPostingController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<ResponseObject> delete(@PathVariable long id) {
         return jobPostingService.delete(id);
+    }
+
+
+    @PutMapping("/{id}/state")
+    public ResponseEntity<ResponseObject> updateJobState(@PathVariable long id, @RequestBody String state) {
+        return jobPostingService.updateJobState(id, state);
+    }
+    @PutMapping("/{id}/vip/{vipStatus}")
+    public ResponseEntity<ResponseObject> setJobVIPStatus(@PathVariable long id, @PathVariable boolean vipStatus,Authentication authentication) {
+        return jobPostingService.setJobVIPStatus(id, vipStatus,authentication);
     }
 }

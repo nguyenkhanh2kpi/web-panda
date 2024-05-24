@@ -25,4 +25,6 @@ public class CandidateItemDTO {
 
     private Boolean view;
     private String phone;
+
+
 }

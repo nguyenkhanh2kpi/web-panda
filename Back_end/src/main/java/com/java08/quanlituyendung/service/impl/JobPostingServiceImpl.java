@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -158,7 +159,7 @@ public class JobPostingServiceImpl implements IJobPostingService {
         var user = userAccountRetriever.getUserAccountEntityFromAuthentication(authentication);
         if (user != null) {
             var jobs = jobPostingRepository.findByUserAccountEntity(user);
-            List<CandidateCompanyItemDTO> response =  jobPostingConverter.getListCandidateFromListJob(jobs);
+            List<CandidateCompanyItemDTO> response = jobPostingConverter.getListCandidateFromListJob(jobs);
             return ResponseEntity.ok(ResponseObject.builder()
                     .message("Success")
                     .status(HttpStatus.OK.toString())
@@ -172,4 +173,78 @@ public class JobPostingServiceImpl implements IJobPostingService {
                             .message(Constant.FAIL).build());
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseObject> updateJobState(long id, String state) {
+        Optional<JobPostingEntity> optionalJob = jobPostingRepository.findById(id);
+        if (optionalJob.isPresent()) {
+            JobPostingEntity job = optionalJob.get();
+            try {
+                job.setState(JobPostingEntity.State.valueOf(state.toUpperCase()));
+                jobPostingRepository.save(job);
+                return ResponseEntity.ok(ResponseObject.builder()
+                        .message("Success")
+                        .status(HttpStatus.OK.toString())
+                        .data("")
+                        .build());
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(ResponseObject.builder()
+                                .status(HttpStatus.FORBIDDEN.toString())
+                                .message(Constant.FAIL).build());
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(ResponseObject.builder()
+                            .status(HttpStatus.FORBIDDEN.toString())
+                            .message(Constant.FAIL).build());
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseObject> setJobVIPStatus(long id, boolean vipStatus, Authentication authentication) {
+        try {
+            var user = userAccountRetriever.getUserAccountEntityFromAuthentication(authentication);
+            List<JobPostingEntity> userListJob = jobPostingRepository.findByUserAccountEntity(user);
+            userListJob.forEach(jobPostingEntity -> {
+                if (jobPostingEntity.getId() == id) {
+                    jobPostingEntity.setIsVip(true);
+                } else {
+                    jobPostingEntity.setIsVip(false);
+                }
+                jobPostingRepository.save(jobPostingEntity);
+            });
+            return ResponseEntity.ok(ResponseObject.builder()
+                    .message("Success")
+                    .status(HttpStatus.OK.toString())
+                    .data("")
+                    .build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(ResponseObject.builder()
+                            .status(HttpStatus.FORBIDDEN.toString())
+                            .message(Constant.FAIL).build());
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseObject> getMyJobs(Authentication authentication) {
+        var user = userAccountRetriever.getUserAccountEntityFromAuthentication(authentication);
+        try {
+            List<JobPostingEntity> listJobPostingEntity = jobPostingRepository.findAll().stream().filter(jobPostingEntity -> jobPostingEntity
+                    .getUserAccountEntity().equals(user)).collect(Collectors.toList());
+            if (!listJobPostingEntity.isEmpty()) {
+                List<JobPostingDTO> listJobPostingDTO = new ArrayList<>();
+                for (JobPostingEntity jobPostingEntity : listJobPostingEntity) {
+                    JobPostingDTO jobPostingDTO = jobPostingConverter.toDTO(jobPostingEntity);
+                    listJobPostingDTO.add(jobPostingDTO);
+                }
+                return ResponseEntity.status(HttpStatus.OK).body(ResponseObject.builder().status(HttpStatus.OK.toString()).message(Constant.SUCCESS).data(listJobPostingDTO).build());
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(ResponseObject.builder().status(HttpStatus.NOT_FOUND.toString()).message(Constant.JOBPOSTINGLIST_NOT_FOUND).build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.OK).body(ResponseObject.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.toString()).message(Constant.FAIL).build());
+        }
+    }
+
 }

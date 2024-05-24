@@ -14,4 +14,10 @@ public interface IJobPostingService {
     ResponseEntity<ResponseObject> getCompanyJobs(Long id);
 
     ResponseEntity<ResponseObject> getMyCandidate(Authentication authentication);
+
+    ResponseEntity<ResponseObject> updateJobState(long id, String state);
+
+    ResponseEntity<ResponseObject> setJobVIPStatus(long id, boolean vipStatus,Authentication authentication);
+
+    ResponseEntity<ResponseObject> getMyJobs(Authentication authentication);
 }

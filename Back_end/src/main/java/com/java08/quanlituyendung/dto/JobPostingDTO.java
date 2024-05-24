@@ -39,4 +39,6 @@ public class JobPostingDTO {
 
     private String industry;
     private String industry2;
+
+    private Boolean isVip;
 }

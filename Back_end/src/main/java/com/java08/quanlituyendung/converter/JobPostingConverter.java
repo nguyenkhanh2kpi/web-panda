@@ -47,6 +47,7 @@ public class JobPostingConverter {
                 .state(JobPostingEntity.State.CREATE)
                 .industry(dto.getIndustry())
                 .industry2(dto.getIndustry2())
+                .isVip(false)
                 .build();
     }
 
@@ -74,6 +75,7 @@ public class JobPostingConverter {
                 .requireTest(entity.getRequireTest())
                 .industry(entity.getIndustry())
                 .industry2(entity.getIndustry2())
+                .isVip(entity.getIsVip())
                 .build();
     }
 

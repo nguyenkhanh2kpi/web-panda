@@ -94,4 +94,6 @@ public class JobPostingEntity extends BaseEntity{
     @Column(name = "industry2")
     private String industry2;
 
+    private Boolean isVip;
+
 }

@@ -16,4 +16,6 @@ public interface IInterviewDetailService {
     ResponseEntity<ResponseObject> getOne(Long roomDetailId);
 
     ResponseEntity<ResponseObject> changeStatus(Long detailId, String status, Authentication authentication);
+
+    ResponseEntity<ResponseObject> deleteCandidate(Long detailId, Authentication authentication);
 }

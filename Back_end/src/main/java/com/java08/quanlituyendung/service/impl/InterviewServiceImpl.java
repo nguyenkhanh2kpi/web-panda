@@ -295,7 +295,7 @@ public class InterviewServiceImpl implements IInterviewService {
             if (interviewHelper.isCandidateJoinJobRooms(candidate.get(), interview.get())) {
                 return ResponseEntity.ok(ResponseObject.builder()
                         .status(HttpStatus.NOT_IMPLEMENTED.toString())
-                        .message("Candidate is assigned to this Room(Interview)!!")
+                        .message("Ứng viên đã tồn tại trong phòng ")
                         .build());
             } else {
                 interviewDetailRepository.save(interviewHelper
@@ -305,14 +305,14 @@ public class InterviewServiceImpl implements IInterviewService {
                         ));
                 return ResponseEntity.ok(ResponseObject.builder()
                         .status(HttpStatus.OK.toString())
-                        .message("Add candidate success!!!!!")
+                        .message("Đăng kí thành công")
                         .data(interviewConverter.toDto(interview.get()))
                         .build());
             }
         }
         return ResponseEntity.ok(ResponseObject.builder()
                 .status(HttpStatus.NOT_FOUND.toString())
-                .message("Can't not find CANDIDATE or ROOM")
+                .message("Không thể tìm thấy ứng viên hoặc phòng")
                 .build());
     }
 

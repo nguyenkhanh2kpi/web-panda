@@ -18,6 +18,7 @@ import com.java08.quanlituyendung.repository.UserAccountRepository;
 import com.java08.quanlituyendung.repository.UserInfoRepository;
 import com.java08.quanlituyendung.service.IMailService;
 import com.java08.quanlituyendung.service.ITokenService;
+import com.java08.quanlituyendung.service.impl.MailServerService;
 import com.java08.quanlituyendung.service.impl.OtpServiceImpl;
 import com.java08.quanlituyendung.utils.Constant;
 import com.java08.quanlituyendung.utils.RandomNumberGenerator;
@@ -36,7 +37,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -52,6 +52,8 @@ public class AuthenticationService {
     private final OtpRepository otpRepository;
     private final UserAccountRepository userRepository;
 
+    private final MailServerService mailServerService;
+
 
     @Autowired
     private LoginGoogleService loginGoogleService;
@@ -60,7 +62,7 @@ public class AuthenticationService {
     private CalendarGoogleService calendarGoogleService;
 
     @Autowired
-    public AuthenticationService(UserAccountRepository userAccountRepository, JwtService jwtService, AuthenticationManager authenticationManager, ITokenService tokenService, UserAccountConverter userAccountConverter, IMailService mailService, UserInfoRepository userInfoRepository, OtpServiceImpl otpService, OtpRepository otpRepository, UserAccountRepository userRepository) {
+    public AuthenticationService(UserAccountRepository userAccountRepository, JwtService jwtService, AuthenticationManager authenticationManager, ITokenService tokenService, UserAccountConverter userAccountConverter, IMailService mailService, UserInfoRepository userInfoRepository, OtpServiceImpl otpService, OtpRepository otpRepository, UserAccountRepository userRepository, MailServerService mailServerService) {
         this.userAccountRepository = userAccountRepository;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
@@ -71,6 +73,7 @@ public class AuthenticationService {
         this.otpService = otpService;
         this.otpRepository = otpRepository;
         this.userRepository = userRepository;
+        this.mailServerService = mailServerService;
     }
 
     public ResponseEntity<ResponseObject> sendOTP(String mail, OtpType otpType) {
@@ -81,9 +84,11 @@ public class AuthenticationService {
                 var otp_code = RandomNumberGenerator.generateSixDigitNumber();
                 // send mail;
                 if (otpType.equals(OtpType.VERIFY)) {
-                    mailService.sendEmail(user.getEmail(), otp_code, EmailType.VERIFICATION);
+                    mailServerService.sendEmail1(user.getEmail(), otp_code,EmailType.VERIFICATION);
+//                    mailService.sendEmail(user.getEmail(), otp_code, EmailType.VERIFICATION);
                 } else {
-                    mailService.sendEmail(user.getEmail(), otp_code, EmailType.RESET_PASSWORD);
+                    mailServerService.sendEmail1(user.getEmail(), otp_code,EmailType.RESET_PASSWORD);
+//                    mailService.sendEmail(user.getEmail(), otp_code, EmailType.RESET_PASSWORD);
                 }
                 // check deliverable mail
 //                if(!mailService.isDeliverableMail(user.getEmail())){
@@ -258,7 +263,8 @@ public class AuthenticationService {
             var otpCode = RandomNumberGenerator.generateSixDigitNumber();
 
             //send mail @Async;
-            mailService.sendEmail(user.getEmail(), otpCode, EmailType.VERIFICATION);
+//            mailService.sendEmail(user.getEmail(), otpCode, EmailType.VERIFICATION);
+            mailServerService.sendEmail1(user.getEmail(), otpCode,EmailType.VERIFICATION);
 
             // check deliverable mail;
 //            if (!mailService.isDeliverableMail(user.getEmail())) {

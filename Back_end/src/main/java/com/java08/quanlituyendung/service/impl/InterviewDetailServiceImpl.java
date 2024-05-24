@@ -81,6 +81,24 @@ public class InterviewDetailServiceImpl implements IInterviewDetailService {
     }
 
     @Override
+    public ResponseEntity<ResponseObject> deleteCandidate(Long detailId, Authentication authentication) {
+        var user = userAccountRetriever.getUserAccountEntityFromAuthentication(authentication);
+        var detail = interviewDetailRepository.findById(detailId);
+        if (user!=null && detail.isPresent()) {
+            interviewDetailRepository.deleteById(detailId);
+            return ResponseEntity.ok(ResponseObject.builder()
+                    .status(HttpStatus.OK.toString())
+                    .message("Candidate deleted successfully")
+                    .build());
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .status(HttpStatus.NOT_FOUND.toString())
+                .message("Can't find interview detail")
+                .build());
+    }
+
+
+    @Override
     public ResponseEntity<ResponseObject> getInterviewDetailByRoomId(Long roomId) {
         List<InterviewDetailResponseDTO> list =  interviewDetailRepository.findAll()
                 .stream()
