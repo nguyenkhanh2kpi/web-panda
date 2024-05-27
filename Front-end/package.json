@@ -1,0 +1,93 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.13",
+    "@chakra-ui/react": "^2.8.2",
+    "@cometchat/chat-sdk-javascript": "^4.0.5",
+    "@cometchat/chat-uikit-react": "^4.3.5",
+    "@cometchat/uikit-elements": "^4.3.6",
+    "@cometchat/uikit-resources": "^4.3.6",
+    "@cometchat/uikit-shared": "^4.3.6",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.15.18",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/system": "^5.15.15",
+    "@react-oauth/google": "^0.12.1",
+    "@syncfusion/ej2-react-calendars": "^23.1.41",
+    "@syncfusion/ej2-react-charts": "^23.1.42",
+    "@syncfusion/ej2-react-dropdowns": "^23.1.42",
+    "@syncfusion/ej2-react-grids": "^23.1.42",
+    "@syncfusion/ej2-react-inputs": "^23.1.42",
+    "@syncfusion/ej2-react-kanban": "^23.1.36",
+    "@syncfusion/ej2-react-popups": "^23.1.38",
+    "@syncfusion/ej2-react-richtexteditor": "^23.1.41",
+    "@syncfusion/ej2-react-schedule": "^23.1.40",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.2.1",
+    "bootstrap": "^5.2.3",
+    "chakra-multiselect": "^0.4.6",
+    "dotenv": "^16.0.3",
+    "firebase": "^10.5.2",
+    "formik": "^2.2.9",
+    "framer-motion": "^7.10.3",
+    "gapi-script": "^1.2.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
+    "react-chat-engine-advanced": "^0.1.28",
+    "react-color": "^2.19.3",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-google-login": "^5.2.2",
+    "react-icons": "^4.7.1",
+    "react-multi-carousel": "^2.8.2",
+    "react-paginate": "^8.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.5",
+    "react-scripts": "^5.0.1",
+    "react-slick": "^0.29.0",
+    "react-to-print": "^2.14.15",
+    "react-toastify": "^9.1.1",
+    "react-uuid": "^2.0.0",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^6.1.11",
+    "swiper": "^8.4.5",
+    "uuid": "^9.0.1",
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}

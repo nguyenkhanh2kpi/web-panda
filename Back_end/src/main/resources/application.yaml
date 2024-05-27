@@ -1,0 +1,23 @@
+spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: nguyenkhanh2kpi@gmail.com
+    password: ckbojxjfaxqtpacz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: false
+    test-connection: false
+    protocol: smtp
+
+
+deliverableMail:
+  api_key: d09bc137b8214699a71fd73981082f8a
+
+
+

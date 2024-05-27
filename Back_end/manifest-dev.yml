@@ -1,0 +1,6 @@
+applications:
+  - name: pandajob
+    path: ./target/quanlituyendung-0.0.1-SNAPSHOT.jar
+    memory: 1G
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 17.+ } }'

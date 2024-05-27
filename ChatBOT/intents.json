@@ -1,0 +1,176 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hi",
+                "How are you",
+                "Is anyone there?",
+                "Hello",
+                "Good day",
+                "Whats up",
+                "Hey",
+                "greetings"
+            ],
+            "responses": [
+                "Hello! How can I assist you with your recruitment needs?",
+                "Good to see you again! How can I help you find the perfect candidate?",
+                "Hi there, how can I assist you today?"
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "cya",
+                "See you later",
+                "Goodbye",
+                "I am Leaving",
+                "Have a Good day",
+                "bye",
+                "see ya"
+            ],
+            "responses": [
+                "Sad to see you go. If you need further assistance, feel free to ask!",
+                "Talk to you later! Don't hesitate to return if you have more questions.",
+                "Goodbye! Have a great day!"
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "job_openings",
+            "patterns": [
+                "Are there any job openings?",
+                "Do you have any available positions?",
+                "What job opportunities do you have?",
+                "Can you tell me about current vacancies?"
+            ],
+            "responses": [
+                "Yes, we have several exciting job openings available. Could you specify your area of interest?",
+                "Certainly! We currently have various job opportunities across different departments. What kind of role are you looking for?"
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "application_process",
+            "patterns": [
+                "How can I apply for a job?",
+                "What is the application process?",
+                "How do I submit my application?",
+                "Can you guide me through the application process?"
+            ],
+            "responses": [
+                "To apply for a job, you can visit our careers page on our website and submit your application online. If you need further assistance, feel free to ask!"
+            ],
+            "context_set": ""
+        },
+
+        {
+            "tag": "interview_process",
+            "patterns": [
+                "What is the interview process like?",
+                "How does the interview process work?",
+                "Can you explain the interview stages?",
+                "What should I expect during the interview?"
+            ],
+            "responses": [
+                "Our interview process typically involves multiple stages, including initial screening, technical interviews, and final discussions. Each stage aims to assess your skills and fit for the role. If you have specific questions about the interview process for a particular role, feel free to ask!"
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "profile_screening",
+            "patterns": [
+                "What does profile screening entail?",
+                "How is profile screening defined?",
+                "Can you explain profile screening?",
+                "What is the purpose of profile screening?",
+                "What is involved in profile screening?",
+                "What is the process of profile screening?",
+                "Could you describe profile screening?",
+                "How is profile screening conducted?",
+                "What are the key aspects of profile screening?",
+                "Can you provide an overview of profile screening?"
+            ],
+            "responses": [
+                "Profile screening is the initial step in the recruitment process where candidate profiles are reviewed to assess their suitability for a job position. It involves evaluating resumes, cover letters, and other application materials to determine if candidates meet the basic qualifications and requirements for the job. The purpose of profile screening is to identify the most qualified candidates who will proceed to the next stage of the hiring process. This process typically includes reviewing qualifications, skills, experience, and relevant job criteria outlined in the job description. Key aspects of profile screening include attention to detail, consistency in evaluation, and adherence to established screening criteria."
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "technical_interviews",
+            "patterns": [
+                "Can you explain what technical interviews are?",
+                "How would you define technical interviews?",
+                "What is the purpose of conducting technical interviews?",
+                "Could you provide an overview of technical interviews?",
+                "What does the term 'technical interviews' entail?",
+                "What is involved in technical interviews?",
+                "Can you describe the concept of technical interviews?",
+                "How are technical interviews typically conducted?",
+                "What are the key aspects of technical interviews?",
+                "What is the significance of technical interviews in the hiring process?"
+            ],
+            "responses": [
+                "Technical interviews are a type of job interview designed to assess a candidate's technical skills, knowledge, and problem-solving abilities related to the specific job role or industry. These interviews typically focus on evaluating a candidate's proficiency in technical concepts, programming languages, algorithms, data structures, system design, and other relevant areas. The purpose of conducting technical interviews is to determine a candidate's suitability for the job and to assess their ability to perform tasks required in the role. Technical interviews often involve coding exercises, whiteboard challenges, case studies, or discussions about past projects and experiences. Key aspects of technical interviews include assessing problem-solving skills, communication abilities, adaptability, and cultural fit within the organization. Technical interviews play a significant role in the hiring process as they help employers identify candidates who possess the necessary technical skills and expertise to excel in the job."
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "cv_generation",
+            "patterns": [
+                "What is the process for generating a CV on your website?",
+                "Could you explain how to create a CV using your website?",
+                "What steps do I need to follow to make a CV on your website?",
+                "Can you provide guidance on building a CV on your website?",
+                "How can I go about crafting a CV on your website?",
+                "What are the instructions for generating a CV on your website?",
+                "Can you walk me through the CV creation process on your website?",
+                "What features or tools are available for creating a CV on your website?",
+                "Do you have any resources or tutorials for making a CV on your website?",
+                "Is there a specific section on your website dedicated to CV creation?"
+            ],
+            "responses": [
+                "To generate a CV on our website, you can follow these steps:\n\n1. Sign in to your account or create a new account if you haven't already.\n2. Navigate to the 'Profile and Carrer > Resume' section on our website.\n3. Start by entering your personal details such as name, contact information, and address.\n4. Proceed to add your education background, including degrees, certifications, and relevant courses.\n5. Provide details about your work experience, including job titles, companies, and responsibilities.\n6. Optionally, include sections for skills, achievements, awards, and references.\n7. Once you've entered all necessary information, review and edit your CV as needed.\n8. Save your CV and choose preview to overview ac.\n\n Finally you can export pdf CV. "
+            ],
+            "context_set": ""
+        },
+        
+
+        {
+            "tag": "contact_information",
+            "patterns": [
+                "How can I contact the jobpanda website if I have an issue?",
+                "Are there any other means of contact besides email that I can use to reach you?",
+                "Do you have a contact phone number that I can call?",
+                "If I want to meet a staff member in person, what should I do?",
+                "Does the jobpanda website provide online support services?",
+                "Are there any emergency support services available?"
+            ],
+            "responses": [
+                "You can contact our jobpanda website through email: nguyenkhanh2kpi@gmail.com and phone number: 0349519943. If you wish to meet in person, please visit 1 Vo Van Ngan, Thu Duc City."
+            ],
+            "context_set": ""
+        },
+        {
+            "tag": "location_information",
+            "patterns": [
+                "Where is your company located?",
+                "Where can your company be found?",
+                "In which location is your company situated?",
+                "What is the location of your company?",
+                "Whereabouts is your company situated?",
+                "What is the geographic location of your company?",
+                "Where is your company based?",
+                "In what area is your company located?",
+                "At which place is your company situated?",
+                "What is the address of your company?",
+                "Which city is your company located in?"
+            ],
+            "responses": [
+                "My company address is so 1 Vo Van Ngan, Thu Duc City."
+            ],
+            "context_set": ""
+        }
+    ]
+}
