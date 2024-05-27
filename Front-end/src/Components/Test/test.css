@@ -1,0 +1,26 @@
+.question-panigate1 .before {
+  /* display: none; */
+}
+.question-panigate1 .next {
+  /* display: none; */
+}
+.page-item1 {
+  display: none;
+  margin: 2px;
+}
+
+.question-panigate1 .page-link1 {
+  margin: 1px;
+  padding: auto;
+  background-color: rgb(236, 255, 255);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+.question-panigate1 .page-item1.active .page-link1 {
+  background-color: #b4e0dd;
+  border-color: #292d30;
+  color: #fff;
+}

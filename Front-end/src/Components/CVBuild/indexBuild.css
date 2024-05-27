@@ -1,0 +1,115 @@
+.page .cv-ipt {
+    width: 100%;
+    white-space: pre-wrap;
+    border: none;
+    outline-width: 1px;
+    padding: 2px;
+    border-radius: 4px;
+    outline-color: rgba(0, 0, 0, 0.2);
+}
+
+.page .name {
+    color: #1e90ff;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 0;
+}
+
+.page .info {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.page .info-val {
+    font-size: 14px;
+}
+
+.page hr {
+    border: 1px solid blue;
+    margin: 2px 0 10px 0;
+}
+
+.info-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.section {
+    flex: 1;
+    margin: 16px 0;
+}
+
+.section .para {
+    min-width: 100%;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
+
+.section .section-title {
+    font-size: 22px;
+    margin-bottom: 0;
+    color: #1e90ff;
+}
+
+.section .tbl {
+    position: relative;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    white-space: pre-wrap;
+}
+
+.section .tbl tr:first-child {
+    font-weight: bold;
+}
+
+.section .tbl tr td:first-child {
+    width: 25%;
+    vertical-align: text-top;
+}
+
+.section .tbl tr td:nth-child(2) {
+    width: 75%;
+}
+
+.section .proj-tbl {
+    position: relative;
+    font-size: 16px;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+.section .proj-tbl table {
+    width: 100%;
+}
+
+.section .proj-tbl .proj-name {
+    font-weight: bold;
+}
+
+.section .proj-tbl .proj-time {
+    display: inline-block;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 2px;
+    min-width: 40px;
+    margin-bottom: 8px;
+}
+
+.section .proj-tbl td {
+    border: 2px solid rgba(30, 144, 255, 0.8);
+    padding: 4px;
+}
+
+.section .proj-tbl tr td:first-child {
+    font-weight: bold;
+    width: 25%;
+}
+
+.section .proj-tbl tr td:nth-child(2) {
+    width: 75%;
+}
+

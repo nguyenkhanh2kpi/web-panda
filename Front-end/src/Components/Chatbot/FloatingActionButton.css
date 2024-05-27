@@ -1,0 +1,21 @@
+.floating-button {
+  border-radius: 50%;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 70px;
+  height: 70px;
+  background-color: #2cccc7;
+  color: rgb(32, 34, 34);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-color: aqua;
+}
+
+.icon {
+  width: 100%;
+  height: auto;
+  color: rgb(251, 251, 251);
+}

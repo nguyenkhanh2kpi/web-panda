@@ -1,0 +1,31 @@
+@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.page-item {
+  margin: 0 5px; 
+  display: inline-block;
+}
+
+.page-link {
+  color: #333;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.active {
+  background-color: #63ffe8;
+  border-color: #acfaf9;
+  color: #fff;
+}
+
+.page-item1 {
+
+}
