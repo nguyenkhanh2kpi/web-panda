@@ -23,7 +23,8 @@ import Message from '../Components/Message/Message'
 import { ResumeProfile } from '../Components/ResumeProfile/ResumeProfile'
 import { TestMain } from '../Components/Test/TestMain'
 import { TestList } from '../Components/Test/TestList'
-import { UserInfo1 } from '../Components/UserInfo/UserInfo1'
+import UserInfo1 from '../Components/UserInfo/UserInfo1'
+
 // import JobPosting from "../Components/Job-recruiter/Job-Posting";
 // import JobDetailRecruiter from "../Components/Job-recruiter/JobDetail";
 // import AllJob from  "../Components/Job-recruiter/AllJob";
