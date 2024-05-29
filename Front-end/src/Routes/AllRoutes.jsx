@@ -24,31 +24,23 @@ import { ResumeProfile } from '../Components/ResumeProfile/ResumeProfile'
 import { TestMain } from '../Components/Test/TestMain'
 import { TestList } from '../Components/Test/TestList'
 import UserInfo1 from '../Components/UserInfo/UserInfo1'
+import { ChangeUsePassword } from '../Components/UserInfo/ChangeUsePassword'
 
-// import JobPosting from "../Components/Job-recruiter/Job-Posting";
-// import JobDetailRecruiter from "../Components/Job-recruiter/JobDetail";
-// import AllJob from  "../Components/Job-recruiter/AllJob";
 const AllRoutes = () => {
   return (
     <Routes>
-      {/* <Route path='/jobDetail_Recruiter/:id' element={<JobDetailRecruiter />} /> */}
-      {/* <Route path='/allJob_Recruiter/' element={<AllJob />} /> */}
-      {/* <Route path='/job-posting/' element={<JobPosting />} /> */}
-
       <Route path='/userInfo/' element={<UserInfo />} />
       <Route path='/userInfo1/' element={<UserInfo1 />} />
+      <Route path='/change-password' element={<ChangeUsePassword />} />
       <Route path='/verify/:email/' element={<Verify />} />
       <Route path='/verifyResetPW/:email/' element={<VerifyPassword />} />
       <Route path='/changePassword/:id/:otp/' element={<ChangePassword />} />
       <Route path='/jobDetail/:id' element={<JobDetail />} />
       <Route path='/logout' element={<Logout />} />
-      {/* Don't Touch it Starts*/}
       <Route path='/' element={<HomePage />} />
       <Route path='/companies' element={<Companies />} />
       <Route path='/companies/:id' element={<CompanyProfile />} />
       <Route path='/create' element={<CreateCompany />} />
-      {/* Don't Touch it Ends*/}
-
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/resetPassword' element={<ResetPassword />} />
@@ -58,12 +50,9 @@ const AllRoutes = () => {
       <Route path='/jobpage-search/:location/:experience/:salary' element={<JobPage />} />
       <Route path='/jobpage/:jobId' element={<JobDetail />} />
       <Route path='/services' element={<ServicesPage />} />
-
-      {/* khanhs */}
       <Route path='/events' element={<Events />} />
       <Route path='/event/:id' element={<EventDetailHome />} />
       <Route path='/cv-build' element={<CurriculumVitae />} />
-
       <Route path='/messages' element={<Message />} />
       <Route path='/resume' element={<ResumeProfile />} />
       <Route path='/test' element={<TestList />} />

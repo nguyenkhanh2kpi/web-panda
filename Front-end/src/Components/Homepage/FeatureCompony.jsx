@@ -21,8 +21,8 @@ const FeatureCompony = () => {
       .catch((er) => console.log(er.message))
   }, [])
   return (
-    <VStack fontFamily={'Montserrat'} w={'80hv'}>
-      <Box borderRadius={10} overflow={'hidden'} position='relative' w='80%' bgColor={'white'}>
+    <VStack fontFamily={'Montserrat'} w={'100%'}>
+      <Box borderRadius={10} overflow={'hidden'} position='relative' w={'100%'} bgColor={'white'}>
         <HStack alignItems='center' spacing={4} p={4}>
           <Icon as={AiOutlineAlert} boxSize={7} p={1} bgColor='#ddeff0' borderRadius='full' />
           <Text fontWeight={'bold'} m={0} fontSize='2xl'>
@@ -30,7 +30,7 @@ const FeatureCompony = () => {
           </Text>
         </HStack>
 
-        <Box className='container py-4 px-4 justify-conten-center '>
+        <Box className='container justify-conten-center '>
           <Swiper
             freeMode={true}
             grabCursor={true}
@@ -72,8 +72,8 @@ const FeatureCompony = () => {
                       }}
                       onClick={() => navigate(`/companies/${company.id}`)}
                       maxW='sm'
-                      orderWidth='1px'
-                      borderRadius={20}
+                      borderWidth='1px'
+                      borderRadius={5}
                       mt={5}
                       overflow='hidden'
                       fontFamily={'Montserrat'}>
@@ -101,9 +101,9 @@ const FeatureCompony = () => {
               ))
               .slice(-10)}
           </Swiper>
-          <Container textAlign='center' mt={10}>
+          <Container textAlign='center' mt={3} mb={5}>
             <Button fontFamily={'Montserrat'} onClick={() => navigate('/companies')} border='1px solid teal' p={7} borderRadius={20} bg='white' color='teal' fontWeight='bold'>
-              View All compony
+              Xem tất cả
             </Button>
           </Container>
         </Box>

@@ -46,8 +46,8 @@ const industries = [
 ]
 export default function ListIndustry() {
   return (
-    <VStack fontFamily={'Montserrat'} w={'80hv'}>
-      <Box borderRadius={10} overflow={'hidden'} position='relative' w='80%' bgColor={'white'}>
+    <VStack fontFamily={'Montserrat'} w={'100%'}>
+      <Box borderRadius={10} overflow={'hidden'} position='relative' w={'100%'} bgColor={'white'}>
         <HStack alignItems='center' spacing={4} p={4}>
           <Icon as={AiOutlineAlert} boxSize={7} p={1} bgColor='#ddeff0' borderRadius='full' />
           <Text fontWeight={'bold'} m={0} fontSize='2xl'>

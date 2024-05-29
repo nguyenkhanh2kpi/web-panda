@@ -5,7 +5,6 @@ import { Heading, HStack, SlideFade, VStack, Image, Text, Button, Wrap, WrapItem
 import { AssignInterviewer } from '../Assign/AssignInterviewer'
 import { AssignCandidate } from '../Assign/AssignCandidate'
 import { interviewService } from '../../Service/interview.service'
-import { toast, ToastContainer } from 'react-toastify'
 import { GoogleCalendar } from '../GoogleCalendar/GoogleCalendar'
 import { MdCheckCircle, MdSettings } from 'react-icons/md'
 import { AiOutlineFolderOpen, AiOutlineSetting, AiOutlineUsergroupAdd } from 'react-icons/ai'
@@ -85,12 +84,29 @@ export const RoomEditInfomation = () => {
       .updateRoom(convertData(room), accessToken)
       .then((res) => {
         if (res.message === 'SUCCESS!!') {
-          toast.success(res.message)
+          toastChakra({
+            description: res.message,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
         } else {
-          toast.error(res.message)
+          toastChakra({
+            description: res.message,
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
         }
       })
-      .catch(() => toast.error('something went wrong'))
+      .catch(() =>
+        toastChakra({
+          description: 'Đã có lỗi xảy ra',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      )
   }
 
   //xoa ung vien
@@ -100,7 +116,7 @@ export const RoomEditInfomation = () => {
     interviewDetailService
       .deleteCandidate(accessToken, candidateToDelete)
       .then((response) =>
-        toast({
+        toastChakra({
           title: 'Delete Candidate',
           description: response.message,
           status: 'info',

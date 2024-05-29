@@ -136,60 +136,36 @@ function Login() {
           className='left_section'
           elevation={4}>
           <Link to='/signup' style={{ textDecoration: 'none' }}>
-            <button
-              variant='outlined'
-              style={{ marginLeft: '10%', marginTop: '10%', fontSize: '20px' }}>
-              Register For Free
+            <button variant='outlined' style={{ marginLeft: '10%', marginTop: '10%', fontSize: '20px' }}>
+              Đăng kí tài khoản mới
             </button>
           </Link>
         </Box>
         <Box
           style={{
             backgroundImage: `url('https://cdn.dribbble.com/users/11310665/screenshots/19568845/panda_logo.png')`,
+            borderWith: '1px',
           }}
           className='form_data'>
           <div className='form_heading'>
-            <p>Welcome Back, Log In</p>
+            <p>Đăng nhập</p>
           </div>
 
           <form>
             <div className='form_input'>
               <label htmlFor='email'>Email</label>
-              <input
-                style={{ borderRadius: '10px' }}
-                type='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                name='email'
-                id='email'
-                placeholder='Enter Your email here '
-              />
+              <input style={{ borderRadius: '10px' }} type='email' value={email} onChange={(e) => setEmail(e.target.value)} name='email' id='email' placeholder='Enter Your email here ' />
             </div>
             <div className='form_input'>
-              <label htmlFor='password'>Password</label>
+              <label htmlFor='password'>Mật khẩu</label>
               <div className='two'>
-                <input
-                  style={{ borderRadius: '10px' }}
-                  type={!passShow ? 'password' : 'text'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  name='password'
-                  id='password'
-                  placeholder='Enter Your password'
-                />
+                <input style={{ borderRadius: '10px' }} type={!passShow ? 'password' : 'text'} value={password} onChange={(e) => setPassword(e.target.value)} name='password' id='password' placeholder='Enter Your password' />
                 <div className='showpass' onClick={() => setPassShow(!passShow)}>
                   {!passShow ? <IoEyeOutline /> : <IoEyeOffOutline />}
                 </div>
               </div>
             </div>
-            <Button
-              backgroundColor={'#87b2c4'}
-              p={8}
-              fontFamily={'Montserrat'}
-              __hover={{ backgroundColor: '#ffffff' }}
-              w={'100%'}
-              borderRadius={10}
-              onClick={submitHandler}>
+            <Button backgroundColor={'#87b2c4'} p={8} fontFamily={'Montserrat'} __hover={{ backgroundColor: '#ffffff' }} w={'100%'} borderRadius={10} onClick={submitHandler}>
               {loading ? (
                 <>
                   <Spinner />
@@ -210,11 +186,7 @@ function Login() {
             </Stack>
           </form>
           <button onClick={() => loginss()}>
-            <img
-              src='https://i.pinimg.com/736x/74/65/f3/7465f30319191e2729668875e7a557f2.jpg'
-              alt='Google Logo'
-              style={{ width: '40px', height: '40px', borderRadius: '50%' }}
-            />
+            <img src='https://i.pinimg.com/736x/74/65/f3/7465f30319191e2729668875e7a557f2.jpg' alt='Google Logo' style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
           </button>
           <ToastContainer />
         </Box>

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
-import { Button, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Input, Box, Image, FormControl, FormLabel, Checkbox } from '@chakra-ui/react'
+import { Button, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Input, Box, Image, FormControl, FormLabel, Checkbox, Text, useToast } from '@chakra-ui/react'
 import { MdVideocam } from 'react-icons/md'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
-import { gapi } from 'gapi-script'
 import { interviewService } from '../../Service/interview.service'
+import { useGoogleLogin } from '@react-oauth/google'
+import { format } from 'date-fns'
 
 const client_id = '854899780211-p148qqqvv8svo8mmviv8tuf6sbmip7iq.apps.googleusercontent.com'
 export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
+  const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-  const [responseReceived, setResponseReceived] = useState(false)
   const accessToken = JSON.parse(localStorage.getItem('data')).access_token
-  const [googleToken, setGoogleToken] = useState()
   const [formGoogle, setGoogleForm] = useState({
     roomId: roomId,
     location: '',
@@ -28,34 +28,8 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
   const handleOnChangeForm = (event) => {
     const { name, value } = event.target
     setGoogleForm((prevForm) => ({ ...prevForm, [name]: value }))
-    setGoogleForm((prevForm) => ({ ...prevForm, token: googleToken }))
+    // setGoogleForm((prevForm) => ({ ...prevForm, token: googleToken }))
   }
-
-  const responseGoogle = (response) => {
-    if (response.accessToken != undefined) {
-      setGoogleToken(response.accessToken)
-    } else {
-      setResponseReceived(!responseReceived)
-    }
-  }
-
-  const responseError = (error) => {
-    console.log(error)
-  }
-
-  const onsuccessLogout = (response) => {
-    console.log('dang xuat thanh cong:' + response)
-  }
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: client_id,
-        scope: 'openid email profile https://www.googleapis.com/auth/calendar.events',
-      })
-    }
-    gapi.load('client:auth2', start)
-  })
 
   function formatDateTime(dateTime) {
     const dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/
@@ -77,12 +51,32 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
 
   const handleSendCalendar = async () => {
     if (validate()) {
-      interviewService
-        .sendCalendar(formGoogle, accessToken)
-        .then((response) => toast.info(response.message))
-        .catch((error) => toast.error('something went wrong'))
+      try {
+        const response = await interviewService.sendCalendar(formGoogle, accessToken)
+        toast({
+          title: 'Lên lịch calendar',
+          description: response.message,
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
+      } catch (error) {
+        toast({
+          title: 'Lên lịch calendar',
+          description: 'Đã có lỗi',
+          status: 'error', 
+          duration: 5000,
+          isClosable: true,
+        })
+      }
     } else {
-      toast.error('invalid form')
+      toast({
+        title: 'Lên lịch calendar',
+        description: 'Hãy nhập đầy đủ thông tin',
+        status: 'error', 
+        duration: 5000,
+        isClosable: true,
+      })
     }
   }
 
@@ -93,14 +87,26 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
     }
     return true
   }
+
   useEffect(() => {
     formatForm()
   }, [isOpen])
 
+  const loginss = useGoogleLogin({
+    clientId: client_id,
+    scope: 'openid email profile https://www.googleapis.com/auth/calendar.events',
+    onSuccess: (tokenResponse) => setGoogleForm((prevForm) => ({ ...prevForm, token: tokenResponse.access_token })),
+    onFailure: (error) => console.log('Login failed', error),
+  })
+
+  const handleOpen = () => {
+    loginss()
+    onOpen()
+  }
+
   return (
     <>
-      <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme='light' />
-      <Button ml={500} fontFamily={'Montserrat'} fontWeight={400} w={'30%'} leftIcon={<MdVideocam />} colorScheme='teal' variant='solid' onClick={onOpen}>
+      <Button ml={500} fontFamily={'Montserrat'} fontWeight={400} w={'30%'} leftIcon={<MdVideocam />} colorScheme='teal' variant='solid' onClick={handleOpen}>
         Lên lịch phỏng vấn
       </Button>
       <Drawer size={'lg'} isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
@@ -108,30 +114,21 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
         <DrawerContent fontFamily={'Montserrat'} fontWeight={400}>
           <DrawerCloseButton />
           <DrawerHeader>Gooogle Calendar</DrawerHeader>
-
           <DrawerBody>
-            <Image h={100} w={100} src='https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_18_2x.png' />
-            <GoogleLogin
-              borderWidth='1px'
-              borderRadius='lg'
-              clientId={client_id}
-              buttonText='Login'
-              onSuccess={responseGoogle}
-              onFailure={responseError}
-              cookiePolicy={'single_host_origin'}
-              responseType='code'
-              accessType='offline'
-              isSignedIn={true}
-              scope='openid email profile https://www.googleapis.com/auth/calendar.events'
-            />
-            <FormControl pt={4}>
-              <FormLabel>Summary</FormLabel>
+            <Button display={'none'} onClick={loginss}>
+              Login
+            </Button>
+            <Text>
+              Thời gian từ {format(startDate, 'HH:mm dd/MM/yyyy')} đến {format(endDate, 'HH:mm dd/MM/yyyy')}
+            </Text>
+            <FormControl>
+              <FormLabel>Tiêu đề</FormLabel>
               <Input onChange={handleOnChangeForm} type='summary' name='summary' value={formGoogle.summary} />
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Lưu ý cho ứng viên</FormLabel>
               <Input onChange={handleOnChangeForm} type='sescription' name='description' value={formGoogle.description} />
-              <FormLabel>Location</FormLabel>
+              <FormLabel>Địa điểm</FormLabel>
               <Input onChange={handleOnChangeForm} type='sescription' name='location' value={formGoogle.location} />
-              <FormLabel>Types interview</FormLabel>
+              <FormLabel>Hình thức</FormLabel>
               <Checkbox
                 onChange={() =>
                   setGoogleForm((prevState) => ({
@@ -142,20 +139,15 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
                 isChecked={formGoogle.offline}>
                 offline
               </Checkbox>
-
-              {/* <FormLabel>Start date</FormLabel>
-              <Input disabled={true} type='datetime-local' name='startTime' value={formGoogle.startTime} />
-              <FormLabel>End Date</FormLabel>
-              <Input disabled={true} type='datetime-local' name='endTime' value={formGoogle.endTime} /> */}
             </FormControl>
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
+              Thoát
             </Button>
             <Button onClick={handleSendCalendar} colorScheme='blue'>
-              Save
+              Lưu
             </Button>
           </DrawerFooter>
         </DrawerContent>

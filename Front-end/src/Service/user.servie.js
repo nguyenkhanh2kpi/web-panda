@@ -98,7 +98,7 @@ const uploadAvatar = async (selectedFile, token) => {
       Authorization: `Bearer ${token}`,
     },
   })
-  console.log("update here", response)
+  console.log('update here', response)
   return response.data
 }
 
@@ -124,6 +124,35 @@ const updateProfile = async (profileData, token) => {
   }
 }
 
+const changePassword = async (token, form) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    }
+
+    const res = await axios.put(`${API_URL}/user/password`, form, config)
+
+    if (res.data.status === '200 OK') {
+      return {
+        status: res.data.status,
+        message: 'Update password successfully!',
+        data: res.data,
+      }
+    } else {
+      return {
+        status: res.data.status,
+        message: res.data.message,
+        data: res.data,
+      }
+    }
+  } catch (error) {
+    throw error
+  }
+}
 export const userService = {
   addBlacklist,
   removeBlacklist,
@@ -131,4 +160,5 @@ export const userService = {
   uploadAvatar,
   getMyProfile,
   updateProfile,
+  changePassword,
 }

@@ -37,8 +37,8 @@ export default function NewJob() {
   const displayItems = filterJob.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
 
   return (
-    <VStack fontFamily={'Montserrat'} mt={10} w={'80hv'}>
-      <Box bgColor={'white'} w={['100%', '80%']}>
+    <VStack p={5} fontFamily={'Montserrat'} w={'80hv'}>
+      <Box w={'100%'}>
         <HStack alignItems='center' spacing={4}>
           <Icon as={AiOutlineAlert} boxSize={7} p={1} bgColor='#ddeff0' borderRadius='full' />
           <Text fontWeight={'bold'} m={0} fontSize={['xl', '2xl']}>
@@ -67,10 +67,10 @@ export default function NewJob() {
         <Grid mt={5} templateColumns={['repeat(1, 1fr)', 'repeat(3, 1fr)']} gap={6}>
           {displayItems.map((job) => (
             <Card key={job.id} onClick={() => navigate(`/jobDetail/${job.id}`)} p={2} h={[150, 100]} direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline'>
-              <Image borderRadius={10} objectFit='cover' w={[120, 90]} src={job.image} alt='Caffe Latte' />
+              <Image borderWidth={1} borderRadius={10} objectFit='cover' w={[120, 90]} src={job.image} alt='Caffe Latte' />
               <Stack>
                 <CardBody>
-                  <Text isTruncated>{job.name}</Text>
+                  <Text isTruncated maxW='230px'>{job.name}</Text>
                   <HStack>
                     <Badge>{job.salary}</Badge>
                     <Badge>{job.location}</Badge>

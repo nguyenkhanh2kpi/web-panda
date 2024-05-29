@@ -53,9 +53,9 @@ const Navbar = () => {
     <div className='flex justify-between p-2 md:ml-6 md:mr-6 relative'>
       <NavButton title='Menu' customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
       <div className='flex'>
-        {/* <NavButton title='Cart' customFunc={() => navigate('/vip/my-bills')} color={currentColor} icon={<FiShoppingCart />} />
+        <NavButton title='Cart' customFunc={() => navigate('/vip/my-bills')} color={currentColor} icon={<FiShoppingCart />} />
         <NavButton title='Chat' dotColor='#03C9D7' customFunc={() => handleClick('chat')} color={currentColor} icon={<BsChatLeft />} />
-        <NavButton title='Notification' dotColor='rgb(254, 201, 15)' customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} /> */}
+        <NavButton title='Notification' dotColor='rgb(254, 201, 15)' customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} />
         <HStack>
           <Menu>
             <MenuButton bgColor={'white'} as={Button}>

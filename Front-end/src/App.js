@@ -11,7 +11,6 @@ import { useStateContext } from './contexts/ContextProvider'
 import { TooltipComponent } from '@syncfusion/ej2-react-popups'
 import { FiSettings } from 'react-icons/fi'
 import { Navbar, FooterAdmin, Sidebar, ThemeSettings } from './Components-admin'
-
 import { ConversationsStyle, MessagesStyle, UIKitSettingsBuilder } from '@cometchat/uikit-shared'
 import { AvatarStyle, BackdropStyle, BadgeStyle, CometChatConversations, CometChatMessages, CometChatUIKit, ListItemStyle, TitleAlignment } from '@cometchat/chat-uikit-react'
 import { CometChatUsersWithMessages } from '@cometchat/chat-uikit-react'
@@ -19,6 +18,8 @@ import { ConversationsRequestBuilder } from '@cometchat/chat-sdk-javascript'
 import { CometChat } from '@cometchat/chat-sdk-javascript'
 import { cometChatService } from './Service/cometchat.service'
 import ChatWindow from './pages-admin/MessageAdmin/ChatWindow'
+import SockJS from 'sockjs-client'
+import { Client } from '@stomp/stompjs'
 
 function App() {
   const data = JSON.parse(localStorage.getItem('data'))
@@ -101,6 +102,7 @@ function App() {
       CometChat.removeMessageListener(listenerID)
     }
   }, [])
+
 
   if (data !== null) {
     if (data.data.role === 'ADMIN' || data.data.role === 'INTERVIEWER' || data.data.role === 'RECRUITER')
