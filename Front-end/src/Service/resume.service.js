@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { hostName } from '../global'
+import { chatHost, hostName } from '../global'
 const API_URL = hostName
 
 const getMyResume = async (token) => {
@@ -143,6 +143,22 @@ const postResumeProject = async (token, form) => {
   }
 }
 
+
+const findRelatedResume = async (form) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    const res = await axios.post(`${chatHost}/find-related-resume`, form, config)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+
 export const resumeService = {
   getMyResume,
   postResume,
@@ -151,4 +167,5 @@ export const resumeService = {
   deleteResumeWorkEx,
   deleteResumeWorkProject,
   putResume,
+  findRelatedResume
 }

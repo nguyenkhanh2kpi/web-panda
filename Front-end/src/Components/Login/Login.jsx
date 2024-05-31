@@ -7,12 +7,14 @@ import './styleLogin.css'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { hostName, webHost } from '../../global'
-import { Button, Spinner, Text, VStack } from '@chakra-ui/react'
+import { Button, Card, CardBody, Center, FormControl, FormLabel, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Spinner, Text, VStack } from '@chakra-ui/react'
 import { IoEyeOutline } from 'react-icons/io5'
 import { IoEyeOffOutline } from 'react-icons/io5'
 import { Stack } from 'react-bootstrap'
 import { authService } from '../../Service/authenticate.service'
 import { useGoogleLogin } from '@react-oauth/google'
+import { FaGoogle } from 'react-icons/fa'
+import { PhoneIcon } from '@chakra-ui/icons'
 
 function Login() {
   const [passShow, setPassShow] = useState(false)
@@ -24,19 +26,18 @@ function Login() {
     setLoading(true)
     e.preventDefault()
     if (email === '') {
-      toast.error('email is required!', {
+      setLoading(false)
+      toast.error('Yêu cầu nhập email!', {
         position: 'top-center',
       })
     } else if (!email.includes('@')) {
+      setLoading(false)
       toast.warning('includes @ in your email!', {
         position: 'top-center',
       })
     } else if (password === '') {
-      toast.error('password is required!', {
-        position: 'top-center',
-      })
-    } else if (password.length < 3) {
-      toast.error('password must be 4 char!', {
+      setLoading(false)
+      toast.error('Hãy nhập mật khẩu!', {
         position: 'top-center',
       })
     } else {
@@ -60,17 +61,16 @@ function Login() {
         console.log('data', data)
 
         if (data.data !== null) {
-          toast.success('User Login Successfuly', {
+          toast.success('Đăng nhập thành công', {
             position: 'top-center',
           })
           localStorage.setItem('data', JSON.stringify(data))
           localStorage.setItem('avatar', JSON.stringify(data.data.userInfo.avatar))
-          console.log('user login succesfully done')
           setLoading(true)
           window.location.replace(`${webHost}`)
         } else {
           if (data.message === 'Your account is not activate!!!') {
-            toast.error(data.message, {
+            toast.error('Tài khoản của bạn chưa được xác thực', {
               position: 'top-center',
             })
 
@@ -85,7 +85,7 @@ function Login() {
               navigate(`/verify/${email}`)
             }, 2000)
           } else {
-            toast.error(data.message, {
+            toast.error('Email hoặc mật khẩu của bạn không đúng', {
               position: 'top-center',
             })
           }
@@ -94,7 +94,7 @@ function Login() {
       } catch (error) {
         const FError = error.response.data.message
         console.log(FError)
-        toast.error('something went wrong', {
+        toast.error('Đã có lỗi xảy ra', {
           position: 'top-center',
         })
         setLoading(false)
@@ -109,7 +109,7 @@ function Login() {
     authService
       .googleLogin(form)
       .then((response) => {
-        toast.success('User Login Successfuly', {
+        toast.success('Đăng nhập thành công', {
           position: 'top-center',
         })
         localStorage.setItem('data', JSON.stringify(response))
@@ -125,73 +125,67 @@ function Login() {
   })
 
   return (
-    <section className='login_section'>
-      <Box mb={40} fontFamily={'Montserrat'} fontSize={'20px'} display={'flex'} mt={5}>
-        <Box
-          style={{
-            backgroundImage: `url('https://static.vecteezy.com/system/resources/previews/007/559/359/non_2x/panda-an-illustration-of-a-panda-logo-climbing-a-bamboo-tree-free-vector.jpg')`,
-          }}
-          w='100%'
-          alignItems={'center'}
-          className='left_section'
-          elevation={4}>
-          <Link to='/signup' style={{ textDecoration: 'none' }}>
-            <button variant='outlined' style={{ marginLeft: '10%', marginTop: '10%', fontSize: '20px' }}>
-              Đăng kí tài khoản mới
-            </button>
-          </Link>
-        </Box>
-        <Box
-          style={{
-            backgroundImage: `url('https://cdn.dribbble.com/users/11310665/screenshots/19568845/panda_logo.png')`,
-            borderWith: '1px',
-          }}
-          className='form_data'>
-          <div className='form_heading'>
-            <p>Đăng nhập</p>
-          </div>
+    <VStack
+      style={{
+        backgroundImage: `url('https://static.vecteezy.com/system/resources/previews/007/559/359/non_2x/panda-an-illustration-of-a-panda-logo-climbing-a-bamboo-tree-free-vector.jpg')`,
+      }}
+      minH={1000}
+      bgColor={'#f0f4f5'}
+      w={'100%'}>
+      <Box w={'500px'} mt={15} fontFamily={'Montserrat'} fontSize={'20px'} display={'flex'}>
+        <Card w={'100%'}>
+          <CardBody w={'500px'}>
+            <Heading fontFamily={'Montserrat'} size={'lg'}>
+              Đăng nhập JobPanda
+            </Heading>
 
-          <form>
-            <div className='form_input'>
-              <label htmlFor='email'>Email</label>
-              <input style={{ borderRadius: '10px' }} type='email' value={email} onChange={(e) => setEmail(e.target.value)} name='email' id='email' placeholder='Enter Your email here ' />
-            </div>
-            <div className='form_input'>
-              <label htmlFor='password'>Mật khẩu</label>
-              <div className='two'>
-                <input style={{ borderRadius: '10px' }} type={!passShow ? 'password' : 'text'} value={password} onChange={(e) => setPassword(e.target.value)} name='password' id='password' placeholder='Enter Your password' />
-                <div className='showpass' onClick={() => setPassShow(!passShow)}>
-                  {!passShow ? <IoEyeOutline /> : <IoEyeOffOutline />}
-                </div>
-              </div>
-            </div>
-            <Button backgroundColor={'#87b2c4'} p={8} fontFamily={'Montserrat'} __hover={{ backgroundColor: '#ffffff' }} w={'100%'} borderRadius={10} onClick={submitHandler}>
-              {loading ? (
-                <>
-                  <Spinner />
-                </>
-              ) : (
-                <>Login</>
-              )}
-            </Button>
+            <FormControl mt={8}>
+              <FormLabel>Email</FormLabel>
+              <Input type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Mật khẩu</FormLabel>
+              <InputGroup mb={10} size='md'>
+                <Input value={password} onChange={(e) => setPassword(e.target.value)} name='password' id='password' pr='4.5rem' type={passShow ? 'text' : 'password'} placeholder='Enter password' />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.75rem' size='sm' onClick={() => setPassShow(!passShow)}>
+                    {!passShow ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+
+            <VStack w={'100%'}>
+              <Button w={'100%'} colorScheme='blue' onClick={submitHandler}>
+                {loading ? (
+                  <>
+                    <Spinner />
+                  </>
+                ) : (
+                  <>Đăng nhập</>
+                )}
+              </Button>
+              <Text style={{ fontSize: '15px' }}>Hoặc đăng nhập bằng </Text>
+              <Button w={'100%'} leftIcon={<FaGoogle />} colorScheme='red' onClick={() => loginss()}>
+                Đăng nhập với Google
+              </Button>
+            </VStack>
+
             <VStack>
               <Link fontFamily={'Montserrat'} to={`/resetPassword`}>
                 <Text style={{ marginTop: '20px', fontSize: '15px' }}>Quên tài khoản </Text>
               </Link>
-              <Text style={{ marginTop: '20px', fontSize: '15px' }}>Hoặc đăng nhập bằng </Text>
             </VStack>
 
             <Stack w={'100%'}>
               <Box mt={3} m='auto' textAlign='center'></Box>
             </Stack>
-          </form>
-          <button onClick={() => loginss()}>
-            <img src='https://i.pinimg.com/736x/74/65/f3/7465f30319191e2729668875e7a557f2.jpg' alt='Google Logo' style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
-          </button>
-          <ToastContainer />
-        </Box>
+
+            <ToastContainer />
+          </CardBody>
+        </Card>
       </Box>
-    </section>
+    </VStack>
   )
 }
 

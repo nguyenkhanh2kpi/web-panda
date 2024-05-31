@@ -77,7 +77,7 @@ const Signup = () => {
         setError(error.response.data.message)
         const FError = error.response.data.message
         console.log(FError)
-        toast.error("something went wrong", {
+        toast.error('something went wrong', {
           position: 'top-center',
         })
         setLoading(false)
@@ -88,29 +88,30 @@ const Signup = () => {
   return (
     <>
       <session>
-        <Box fontFamily={'Montserrat'} mt={15} className='main'>
+        <Box h={1000} bgColor={'#f0f4f5'} fontFamily={'Montserrat'} className='main'>
           <Box
-            h={'auto'}
+            mt={10}
+            h={700}
             style={{
               backgroundImage: `url('https://i.pinimg.com/736x/34/e7/eb/34e7eb9d5803c1e4ec087637c4d15076.jpg')`,
             }}
             className='form_data3'>
             <Box mt={10} fontSize={25} className='form_heading'>
-              Find a job & grow your career
+              Đăng kí và tìm việc ngay trên JobPanda
             </Box>
             <form>
               <div className='form_input_name'>
-                <label htmlFor='name'>Please Enter Full Name</label>
+                <label htmlFor='name'>Tên đầy đủ </label>
                 <input type='name' value={username} onChange={(e) => setName(e.target.value)} name='name' id='name' placeholder='Enter Your Name ' />
               </div>
 
               <div className='form_input'>
-                <label htmlFor='email'>Email/username</label>
+                <label htmlFor='email'>Tài khoản email</label>
                 <input type='email' value={email} onChange={(e) => setEmail(e.target.value)} name='email' id='Email' placeholder='Enter Your email here ' />
               </div>
 
               <div className='form_input'>
-                <label htmlFor='password'>Password</label>
+                <label htmlFor='password'>Mật khẩu</label>
                 <div className='two'>
                   <input value={password} onChange={(e) => setPassword(e.target.value)} type={!passShow ? 'password' : 'text'} name='password' id='password1' placeholder='Enter Your password' />
                   <div className='showpass1' onClick={() => setPassShow(!passShow)}>
@@ -119,7 +120,7 @@ const Signup = () => {
                 </div>
               </div>
               <div className='form_input'>
-                <label htmlFor='password1'>Conform Password</label>
+                <label htmlFor='password1'>Nhập lại mật khẩu</label>
                 <div className='two'>
                   <input value={confirmpassword} onChange={(e) => setConfirmPassword(e.target.value)} type={!cpassShow ? 'password' : 'text'} name='cpassword' id='password' placeholder='Enter Your password' />
                   <Box className='showpass1' onClick={() => setCPassShow(!cpassShow)}>
@@ -129,7 +130,7 @@ const Signup = () => {
               </div>
 
               <Button color={'white'} mb={10} backgroundColor={'#87b2c4'} onClick={handleSubmit}>
-                Register Now
+                Đăng kí
               </Button>
             </form>
             <ToastContainer />

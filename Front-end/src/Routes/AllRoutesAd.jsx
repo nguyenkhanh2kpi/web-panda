@@ -43,6 +43,7 @@ import { LoadingComponent } from '../Components-admin/LoadingComponent'
 import Message from '../Components/Message/Message'
 import MessageAdmin from '../pages-admin/MessageAdmin/MessageList'
 import UserInfo1 from '../Components/UserInfo/UserInfo1'
+import { SearchCandidate } from '../pages-admin/SearchCandidate/SearchCandidate'
 
 const AllRoutesAd = () => {
   return (
@@ -126,6 +127,7 @@ const AllRoutesAd = () => {
       <Route path='/loading' element={<LoadingComponent />} />
 
       <Route path='/messages' element={<MessageAdmin />} />
+      <Route path='/search-candidate' element={<SearchCandidate />} />
     </Routes>
   )
 }

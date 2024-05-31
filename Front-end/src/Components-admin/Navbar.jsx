@@ -57,7 +57,7 @@ const Navbar = () => {
         <NavButton title='Chat' dotColor='#03C9D7' customFunc={() => handleClick('chat')} color={currentColor} icon={<BsChatLeft />} />
         <NavButton title='Notification' dotColor='rgb(254, 201, 15)' customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} />
         <HStack>
-          <Menu>
+          {/* <Menu>
             <MenuButton bgColor={'white'} as={Button}>
               <WrapItem>
                 <FiShoppingCart />
@@ -77,14 +77,13 @@ const Navbar = () => {
                 <RiNotification3Line />
               </WrapItem>
             </MenuButton>
-          </Menu>
+          </Menu> */}
           <Menu>
             <MenuButton bgColor={'white'} as={Button} rightIcon={<ChevronDownIcon />}>
               <WrapItem>
                 <HStack spacing='2'>
                   <Avatar name={data.data.username} src={data.data.userInfo.avatar} size='sm' />
                   <Text mt={3}>{data.data.username}</Text>
-                  <IconButton borderRadius={'50%'} bgColor='yellow' icon={<RiVipCrown2Line />} />
                 </HStack>
               </WrapItem>
             </MenuButton>

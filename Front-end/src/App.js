@@ -103,7 +103,6 @@ function App() {
     }
   }, [])
 
-
   if (data !== null) {
     if (data.data.role === 'ADMIN' || data.data.role === 'INTERVIEWER' || data.data.role === 'RECRUITER')
       return (
@@ -143,18 +142,31 @@ function App() {
         </BrowserRouter>
       )
   }
+
   return (
     <BrowserRouter>
       <Provider store={store}>
         <div className='App'>
           {isChatOpen ? <ChatWindow onClose={toggleChatWindow} email={sendToMe.sender.uid} /> : <></>}
-          <Navbar1 />
+          <ConditionalNavbar />
           <AllRoutes />
-          <Footer />
+          <ConditionalFooter />
         </div>
       </Provider>
     </BrowserRouter>
   )
+}
+
+const ConditionalNavbar = () => {
+  const location = useLocation()
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/resetPassword'
+  return !isLoginPage && <Navbar1 />
+}
+
+const ConditionalFooter = () => {
+  const location = useLocation()
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/resetPassword'
+  return !isLoginPage && <Footer />
 }
 
 export default App

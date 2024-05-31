@@ -74,6 +74,7 @@ const JobPage = () => {
       displayItems.map((job) => {
         return job.status === true ? (
           <Box
+            bgColor={'white'}
             _hover={{
               boxShadow: 'xl',
               transition: 'all 0.2s ease-in-out',
@@ -148,7 +149,7 @@ const JobPage = () => {
 
   return (
     <>
-      <Box mb={10} fontFamily={'Montserrat'} alignItems={'center'} w={'100%'}>
+      <Box bgColor={'#f0f4f5'} mb={10} fontFamily={'Montserrat'} alignItems={'center'} w={'100%'}>
         <VStack>
           <Box mt='120px' fontWeight='bold' width='80%' fontSize='20px'>
             <Container h={'70px'} maxW={'100%'}>
@@ -162,9 +163,6 @@ const JobPage = () => {
                 <Box w={'223px'} h={'100%'} pr={'0px'} pt={'4px'} pl={'10px'} pb={'6px'}>
                   <Select onChange={handleChangeSearch} name='location' color={'#8292b4'} border={'none'} defaultValue={search.location}>
                     <option value='all'>Địa điểm</option>
-                    {/* <option value='Hồ Chí Minh'>Hồ Chí Minh</option>
-                    <option value='Đà Nẵng'>Đà Nẵng</option>
-                    <option value='Hà Nội'>Hà Nội</option> */}
                     {province.map((p) => (
                       <option key={p.id} value={p.name}>
                         {p.name}

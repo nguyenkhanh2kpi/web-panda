@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Card, CardBody, CardFooter, Grid, GridItem, HStack, Heading, Icon, Image, Stack, Text, VStack } from '@chakra-ui/react'
+import { Badge, Box, Button, Card, CardBody, CardFooter, Grid, GridItem, HStack, Heading, Icon, Image, Skeleton, Stack, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineAlert, AiOutlineFolderOpen } from 'react-icons/ai'
 import { jobService } from '../../Service/job.service'
@@ -65,23 +65,64 @@ export default function NewJob() {
         </HStack>
 
         <Grid mt={5} templateColumns={['repeat(1, 1fr)', 'repeat(3, 1fr)']} gap={6}>
-          {displayItems.map((job) => (
-            <Card key={job.id} onClick={() => navigate(`/jobDetail/${job.id}`)} p={2} h={[150, 100]} direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline'>
-              <Image borderWidth={1} borderRadius={10} objectFit='cover' w={[120, 90]} src={job.image} alt='Caffe Latte' />
-              <Stack>
-                <CardBody>
-                  <Text isTruncated maxW='230px'>{job.name}</Text>
-                  <HStack>
-                    <Badge>{job.salary}</Badge>
-                    <Badge>{job.location}</Badge>
-                  </HStack>
-                </CardBody>
-              </Stack>
-            </Card>
-          ))}
+          {displayItems.length > 0 ? (
+            <>
+              {displayItems.map((job) => (
+                <Card key={job.id} onClick={() => navigate(`/jobDetail/${job.id}`)} p={2} h={[150, 100]} direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline'>
+                  <Image borderWidth={1} borderRadius={10} objectFit='cover' w={[120, 90]} src={job.image} alt='Caffe Latte' />
+                  <Stack>
+                    <CardBody>
+                      <Text isTruncated maxW='230px'>
+                        {job.name}
+                      </Text>
+                      <HStack>
+                        <Badge>{job.salary}</Badge>
+                        <Badge>{job.location}</Badge>
+                      </HStack>
+                    </CardBody>
+                  </Stack>
+                </Card>
+              ))}
+            </>
+          ) : (
+            <SkeletonCard />
+          )}
         </Grid>
         <Stack w={'100%'} mt={10}></Stack>
       </Box>
     </VStack>
+  )
+}
+
+const SkeletonCard = () => {
+  const skeletonArray = Array.from({ length: 12 })
+
+  return (
+    <>
+      {skeletonArray.map((_, index) => (
+        <Card
+          key={index}
+          p={2}
+          h={[150, 100]}
+          direction={{ base: 'column', sm: 'row' }}
+          overflow='hidden'
+          variant='outline'
+          mb={4} 
+        >
+          <Skeleton borderWidth={1} borderRadius={10} w={[120, 90]} />
+          <Stack>
+            <CardBody>
+              <Text isTruncated maxW='220px'>
+                <Skeleton w={300} height='20px' />
+              </Text>
+              <HStack>
+                <Skeleton w={100} height='20px' />
+                <Skeleton w={100} height='20px' />
+              </HStack>
+            </CardBody>
+          </Stack>
+        </Card>
+      ))}
+    </>
   )
 }

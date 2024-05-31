@@ -67,6 +67,7 @@ import { IoAlbumsOutline } from 'react-icons/io5'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { hostName, webHost } from '../global'
+import { SearchIcon } from '@chakra-ui/icons'
 export const gridOrderImage = (props) => (
   <div>
     <img className='rounded-xl h-20 md:ml-3' src={props.ProductImage} alt='order-item' />
@@ -684,6 +685,11 @@ export const reccerLink = [
         title: 'Đăng tuyển dụng',
         name: 'allJob_Recruiter',
         icon: <BiBriefcase />,
+      },
+      {
+        title: 'Tìm kiếm ứng viên',
+        name: 'search-candidate',
+        icon: <SearchIcon />,
       },
       {
         title: 'Tiến trình',
