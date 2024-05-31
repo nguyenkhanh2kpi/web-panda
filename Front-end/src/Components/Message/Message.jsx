@@ -1,4 +1,4 @@
-import { Box, HStack } from '@chakra-ui/react'
+import { Box, HStack, Heading, SlideFade, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { ConversationsStyle, MessagesStyle } from '@cometchat/uikit-shared'
 import { CometChatConversations, CometChatMessages, TitleAlignment } from '@cometchat/chat-uikit-react'
@@ -84,20 +84,23 @@ const Message = () => {
   // }, [])
 
   return (
-    <Box mb={20} mt={120} fontFamily={'Montserrat'}>
-      <Box h={600} display='flex' justifyContent='space-evenly'>
-        <Box overflow={'hidden'} borderRadius={20} borderWidth={1} h={600} display='flex' w='75%' boxShadow={'lg'}>
-          <HStack w={'100%'}>
+    <VStack bgColor={'#f0f4f5'} fontFamily={'Montserrat'}>
+      <SlideFade offsetY={20}>
+        <Heading size={'lg'} m={'6'} mt={24}></Heading>
+      </SlideFade>
+      <HStack h={1000} align={'flex-start'} w={'80vw'}>
+        <VStack h={600} bgColor={'white'} w={'100%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'}>
+          <HStack h={600} alignItems={'flex-start'} w={'100%'}>
             <Box h={'100%'} w={'30%'}>
-              <CometChatConversations onItemClick={handleOnItemClick} listItemStyle={listItemStyle} avatarStyle={avatarStyle} title='Messages' titleAlignment={TitleAlignment.center} conversationsStyle={conversationsStyle} />
+              <CometChatConversations onItemClick={handleOnItemClick} listItemStyle={listItemStyle} avatarStyle={avatarStyle} title='Tin nhắn' titleAlignment={TitleAlignment.center} conversationsStyle={conversationsStyle} />
             </Box>
             <Box w={'70%'} h={'100%'}>
               {chatUser && <CometChatMessages messagesStyle={messagesStyle} user={chatUser} />}
             </Box>
           </HStack>
-        </Box>
-      </Box>
-    </Box>
+        </VStack>
+      </HStack>
+    </VStack>
   )
 }
 

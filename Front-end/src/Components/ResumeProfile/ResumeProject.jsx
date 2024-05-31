@@ -1,10 +1,11 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, Text, Textarea } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Input, Text, Textarea, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ResumeWorkProjectItem } from './ResumeWorkProjectItem'
 import { resumeService } from '../../Service/resume.service'
 import { ToastContainer, toast } from 'react-toastify'
 
 export const ResumeProject = ({ workProjects, setResume }) => {
+  const toast = useToast()
   const [workProject, setWorkProjects] = useState([])
   let accessToken = ''
   try {
@@ -44,7 +45,13 @@ export const ResumeProject = ({ workProjects, setResume }) => {
       .deleteResumeWorkProject(accessToken, project)
       .then((response) => {
         setResume(response.data)
-        toast.info(response.message)
+        toast({
+          title: 'Xóa dự án.',
+          description: response.message,
+          status: 'info',
+          duration: 4000,
+          isClosable: true,
+        })
       })
       .catch((er) => console.log(er))
   }
@@ -54,16 +61,22 @@ export const ResumeProject = ({ workProjects, setResume }) => {
       .postResumeProject(accessToken, project)
       .then((response) => {
         setResume(response.data)
-        toast.info(response.message)
+        toast({
+          title: 'Dự án.',
+          description: response.message,
+          status: 'info',
+          duration: 4000,
+          isClosable: true,
+        })
       })
       .catch((er) => console.log(er))
   }
 
   return (
-    <Box w={'100%'} m={0}>
+    <>
       {workProject?.map((w) => (
         <ResumeWorkProjectItem item={w} addClick={addWorkProject} deleteClick={deleteProject} saveClick={saveProject} />
       ))}
-    </Box>
+    </>
   )
 }

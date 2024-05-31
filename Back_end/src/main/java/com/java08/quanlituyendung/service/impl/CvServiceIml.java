@@ -6,15 +6,19 @@ import com.java08.quanlituyendung.dto.ResponseObject;
 import com.java08.quanlituyendung.entity.CVEntity;
 import com.java08.quanlituyendung.entity.JobPostingEntity;
 import com.java08.quanlituyendung.entity.UserAccountEntity;
+import com.java08.quanlituyendung.entity.notify.NotifyEntity;
 import com.java08.quanlituyendung.repository.CvRepository;
 import com.java08.quanlituyendung.repository.JobPostingRepository;
+import com.java08.quanlituyendung.repository.NotifyRepository;
 import com.java08.quanlituyendung.repository.UserInfoRepository;
 import com.java08.quanlituyendung.service.ICvService;
 import com.java08.quanlituyendung.service.IFileUploadService;
+import com.java08.quanlituyendung.service.INotifyService;
 import com.java08.quanlituyendung.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +40,8 @@ public class CvServiceIml implements ICvService {
     private CvRepository cvRepository;
     @Autowired
     IFileUploadService iFileUploadService;
+    @Autowired
+    INotifyService notifyService;
 
     public ResponseEntity<ResponseObject> applyJob(long idJobPosting, Authentication authentication) {
         if (userAccountRetriever.getUserAccountEntityFromAuthentication(authentication) != null) {
@@ -141,6 +147,7 @@ public class CvServiceIml implements ICvService {
     @Override
     public ResponseEntity<ResponseObject> updateStatus(Long id, String status) {
         Optional<CVEntity> optionalCvEntity = cvRepository.findById(id);
+
         if (!optionalCvEntity.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     ResponseObject.builder()
@@ -149,7 +156,12 @@ public class CvServiceIml implements ICvService {
                             .build()
             );
         }
-
+        notifyService.sendNotification("Nhà tuyển dụng cập nhật CV",
+                "Job: "+ optionalCvEntity.get().getJobPostingEntity().getName()
+                + " bạn đã được nhà tuyển dụng cập nhật trạng thái CV thành: " + status,
+                "johndoe@gmail.com",
+                "/jobDetail/"+optionalCvEntity.get().getJobPostingEntity().getId()
+                );
         CVEntity cvEntity = optionalCvEntity.get();
         cvEntity.setState(getState(status));
         cvRepository.save(cvEntity);

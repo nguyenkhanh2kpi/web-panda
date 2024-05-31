@@ -5,9 +5,9 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 
 export default function SliderBanner() {
   const slides = [
-    { id: 1, content: 'Chợ việc làm 2024', imageUrl: 'https://static.topcv.vn/img/2024-05-07_154050.png' },
-    { id: 2, content: 'Chúng tôi đang tuyển', imageUrl: 'https://static.topcv.vn/img/banner_shinhan.png' },
-    { id: 3, content: 'Slide 3 Content', imageUrl: 'https://static.topcv.vn/img/T1%201100x220.png' },
+    { id: 1, content: 'Chợ việc làm 2024', imageUrl: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/1717181978014_bann3.png?alt=media' },
+    { id: 2, content: 'Chúng tôi đang tuyển', imageUrl: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/1717181978014_bann3.png?alt=media' },
+    // { id: 3, content: 'Slide 3 Content', imageUrl: 'https://static.topcv.vn/img/T1%201100x220.png' },
   ]
 
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -31,7 +31,7 @@ export default function SliderBanner() {
         {slides.map((slide, index) => (
           <Box key={slide.id} display={index === currentSlide ? 'block' : 'none'}>
             <Box h='300px' w='100%' bgImage={`url(${slide.imageUrl})`} bgSize='cover' bgPosition='center' textAlign='center' lineHeight='200px' fontSize='2xl' color='white'>
-              {slide.content}
+              <Text color={'black'}>{slide.content}</Text>
             </Box>
             {/* <HStack p={3} w={'100%'}>
               <Flex w={'100%'} spacing='4'>

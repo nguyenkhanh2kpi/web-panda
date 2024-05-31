@@ -7,6 +7,7 @@ import { Badge, Box, Button, Card, CardBody, HStack, Heading, Icon, Link, Text, 
 import { notifyService } from '../../Service/notify.service'
 import { format } from 'date-fns'
 import { CheckCircleIcon, CheckIcon } from '@chakra-ui/icons'
+import { hostName } from '../../global'
 
 const Notification = () => {
   const [showPopover, setShowPopover] = useState(false)
@@ -15,7 +16,7 @@ const Notification = () => {
   const accessToken = JSON.parse(localStorage.getItem('data')).access_token
 
   useEffect(() => {
-    const socket = new SockJS('http://localhost:8080/ws')
+    const socket = new SockJS(`${hostName}/ws`)
     const stompClient = new Client({
       webSocketFactory: () => socket,
       debug: (str) => {

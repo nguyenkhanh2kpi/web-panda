@@ -51,9 +51,9 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (!userAccountRepository.existsByEmail("admin@gmail.com")) {
-        //     GenerateUser();
-        //     GenerateSkillPosition();
-        //     GenerateQuestions();
+//            GenerateUser();
+//            GenerateSkillPosition();
+//            GenerateQuestions();
             System.out.println("Dữ liệu đã được khởi tạo thành công!");
 
         } else {

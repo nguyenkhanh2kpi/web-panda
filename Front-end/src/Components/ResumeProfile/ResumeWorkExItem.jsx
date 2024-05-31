@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
-  Text,
-  Textarea,
-} from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Input, Text, Textarea, VStack } from '@chakra-ui/react'
 export const ResumeWorkExItem = ({ item, addClick, deleteClick, saveClick }) => {
   const [worksExp, setWorkExp] = useState([])
   useEffect(() => {
@@ -23,69 +14,56 @@ export const ResumeWorkExItem = ({ item, addClick, deleteClick, saveClick }) => 
     }))
   }
 
+
   return (
-    <Box p={5} w={'100%'} backgroundColor={'white'} display='flex' alignItems='baseline'>
-      <FormControl isRequired>
-        <FormLabel>Company Name</FormLabel>
-        <Input
-          name='companyName'
-          onChange={handleOnChange}
-          placeholder=''
-          value={worksExp.companyName}
-        />
+    <>
+      <HStack spacing={10} w={'100%'}>
+        <FormControl w={'50%'}>
+          <FormLabel>Tên công ty</FormLabel>
+          <Input name='companyName' onChange={handleOnChange} value={worksExp.companyName} />
+        </FormControl>
+        <FormControl w={'50%'}>
+          <FormLabel>Vị trí/ Chức vụ</FormLabel>
+          <Input name='position' onChange={handleOnChange} value={worksExp.position} />
+        </FormControl>
+      </HStack>
 
-        <FormLabel>Working time </FormLabel>
-        <HStack>
-          <Text>From</Text>
-          <Input
-            name='startWorkingTime'
-            onChange={handleOnChange}
-            type='date'
-            placeholder=''
-            value={worksExp.startWorkingTime}
-          />
+      <HStack spacing={10} w={'100%'}>
+        <FormControl w={'50%'}>
+          <Text>Thời gian bắt đầu</Text>
+          <Input name='startWorkingTime' onChange={handleOnChange} type='date' value={worksExp.startWorkingTime} />
+        </FormControl>
+        <FormControl w={'50%'}>
+          <Text>Thời gian kết thúc</Text>
+          <Input name='endWorkingTime' onChange={handleOnChange} type='date' value={worksExp.endWorkingTime} />
+        </FormControl>
+      </HStack>
 
-          <Text>To</Text>
-          <Input
-            name='endWorkingTime'
-            onChange={handleOnChange}
-            type='date'
-            placeholder=''
-            value={worksExp.endWorkingTime}
-          />
+      <HStack spacing={10} w={'100%'}>
+        <FormControl w={'100%'}>
+          <FormLabel>Mô tả công việc</FormLabel>
+          <Textarea name='jobDetail' onChange={handleOnChange} value={worksExp.jobDetail} />
+        </FormControl>
+      </HStack>
 
-          <Button>Now</Button>
-        </HStack>
+      <HStack spacing={10} w={'100%'}>
+        <FormControl w={'100%'}>
+          <FormLabel>Công cụ/công nghệ( nếu có)</FormLabel>
+          <Input name='technology' onChange={handleOnChange} placeholder='' value={worksExp.technology} />
+        </FormControl>
+      </HStack>
 
-        <FormLabel>Position</FormLabel>
-        <Input name='position' onChange={handleOnChange} placeholder='' value={worksExp.position} />
-
-        <FormLabel>Job details and roles at this position</FormLabel>
-        <Textarea
-          name='jobDetail'
-          onChange={handleOnChange}
-          placeholder=''
-          value={worksExp.jobDetail}
-        />
-
-        <FormLabel>Technology/tools used for this position</FormLabel>
-        <Input
-          name='technology'
-          onChange={handleOnChange}
-          placeholder=''
-          value={worksExp.technology}
-        />
-
-        <Button onClick={() => deleteClick(item)} backgroundColor={'#94a6a6'} mt={2}>
+      <HStack w={'40%'}>
+        <Button color={'white'} onClick={() => deleteClick(item)} backgroundColor={'#94a6a6'} mt={2}>
           -
         </Button>
-        <Button onClick={addClick} backgroundColor={'#8ebfb4'} ml={2} mt={2}>
+        <Button color={'white'} onClick={addClick} backgroundColor={'#8ebfb4'} ml={2} mt={2}>
           +
         </Button>
-        <Button onClick={() => saveClick(worksExp)} backgroundColor={'#92e0cf'} ml={2} mt={2}>
-          save
+        <Button color={'white'} onClick={() => saveClick(worksExp)} backgroundColor={'#92e0cf'} ml={2} mt={2}>
+          Lưu
         </Button>
-      </FormControl>
-    </Box>
+      </HStack>
+    </>
   )
 }

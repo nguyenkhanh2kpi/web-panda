@@ -41,6 +41,7 @@ import { webHost } from '../../global'
 import { CometChatUIKit } from '@cometchat/chat-uikit-react'
 import ChatContainer from '../Chatbot/Chatbot'
 import Notification from './Notification'
+import { NotifyMessage } from './NotifyMessage'
 
 const Navbar1 = () => {
   const navigate = useNavigate()
@@ -60,7 +61,6 @@ const Navbar1 = () => {
     window.location.replace(`${webHost}`)
     CometChatUIKit.logout()
   }
-
 
   return (
     <Box fontFamily={'Montserrat'} as={Container} zIndex='100' top='0' maxW='100%' h={'72px'} position='fixed' bgColor='white' mb='150px'>
@@ -102,7 +102,7 @@ const Navbar1 = () => {
                 Sự kiện
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={() => navigate('/events')}>Xem sự kiện</MenuItem>
+                <MenuItem onClick={() => navigate('/')}>Xem sự kiện</MenuItem>
               </MenuList>
             </Menu>
           </Box>
@@ -123,6 +123,7 @@ const Navbar1 = () => {
         <Stack direction={'row'} h={'100%'} alignItems={'center'}>
           {data !== null ? (
             <HStack w={'100%'}>
+              <NotifyMessage />
               <Notification />
               <Menu>
                 <MenuButton bgColor={'white'} as={Button} rightIcon={<ChevronDownIcon />}>

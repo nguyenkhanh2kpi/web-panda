@@ -13,6 +13,7 @@ import { Link} from "react-router-dom";
 import {ref,uploadBytes,getDownloadURL} from "firebase/storage"
 import {storage} from "../../firebase.js"
 import {v4} from "uuid";
+import { hostName } from "../../global.js";
 const CandidateInfo = () => {
 
   const dispatch = useDispatch();
@@ -130,7 +131,7 @@ const CandidateInfo = () => {
         formData.append("file", image)
 
         const imageResponse = await axios.post(
-            "http://localhost:8080/file/upload",
+            `${hostName}/file/upload`,
             formData,
             {
                 headers: {
@@ -159,7 +160,7 @@ const CandidateInfo = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://localhost:8080/job-posting`,
+          url: `${hostName}/job-posting`,
           headers: { 
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${accessToken}`

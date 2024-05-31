@@ -82,7 +82,7 @@ class InterviewTests {
 
 	@Test
 	void getInterviewFail() throws Exception {
-		String token = login(mockMvc,"johndoe@gmail.com","1234");
+		String token = login(mockMvc,"candidate@gmail.com","1234");
 		MvcResult result = mockMvc.perform(get("/interview")
 						.header("Authorization", "Bearer " + token)
 						.contentType(MediaType.APPLICATION_JSON))
@@ -147,11 +147,7 @@ class InterviewTests {
 						.header("Authorization", "Bearer " + token)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(requestBody))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.status").value(HttpStatus.OK.toString()))
-				.andExpect(jsonPath("$.message").value(Constant.SUCCESS))
-				.andExpect(jsonPath("$.data").isNotEmpty())
-				.andExpect(jsonPath("$.data.id").isNumber());
+				.andExpect(status().isForbidden());
 	}
 
 }

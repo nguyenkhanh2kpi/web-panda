@@ -58,7 +58,7 @@ class InterviewDetailControllerTest {
     @Test
     void getById() throws Exception {
         String token = login("reccer1@gmail.com", "1234");
-        mockMvc.perform(get("/interview-detail/3").header("authorization", "Bearer " + token)
+        mockMvc.perform(get("/interview-detail/1").header("authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
@@ -80,7 +80,7 @@ class InterviewDetailControllerTest {
     @Test
     void markCandidate() throws Exception {
         var request = MarkCandidatePayload.builder()
-                .interviewDetailId(3L)
+                .interviewDetailId(1L)
                 .averageMark(9F)
                 .comment("comment")
                 .build();
@@ -101,7 +101,7 @@ class InterviewDetailControllerTest {
                 .averageMark(9F)
                 .comment("comment")
                 .build();
-        String token = login("johndoe@gmail.com", "1234");
+        String token = login("candidate@gmail.com", "1234");
         mockMvc.perform(post("/interview-detail/mark")
                         .header("authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
