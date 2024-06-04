@@ -4,7 +4,7 @@ import { Box, Center, Flex, FormLabel, Heading, HStack, IconButton, Image, Link,
 import { EmailIcon, InfoOutlineIcon, SearchIcon } from '@chakra-ui/icons'
 import { companyService } from '../../Service/company.service'
 import { ItemJobInCompany } from './ItemJobInCompany'
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline } from 'react-icons/io5'
 
 const CompanyProfile = () => {
   const params = useParams()
@@ -23,7 +23,7 @@ const CompanyProfile = () => {
   } else {
     return (
       <>
-        <VStack fontFamily={'Montserrat'}>
+        <VStack bgColor={'#f0f4f5'} fontFamily={'Montserrat'}>
           <SlideFade in={true} offsetY={20}>
             <Heading size={'lg'} m={'6'} mt={24}></Heading>
           </SlideFade>
@@ -54,15 +54,15 @@ const CompanyProfile = () => {
 
           <HStack m={5} align={'flex-start'} w={'70vw'} p={5}>
             <VStack w={'70%'} pr={3} spacing={12}>
-              <Box w={'100%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'}>
+              <Box bgColor={'white'} w={'100%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'}>
                 <FormLabel fontWeight={'bold'} fontSize={18} w={'100%'} p={4}>
-                  Company Information
+                  Thông tin cơ bản
                 </FormLabel>
                 <Text p={4}>{company.info}</Text>
               </Box>
-              <Box w={'100%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'}>
+              <Box bgColor={'white'} w={'100%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'}>
                 <FormLabel fontWeight={'bold'} fontSize={18} w={'100%'} p={4}>
-                  JobPosting
+                  Công việc
                 </FormLabel>
                 {listJob.map((job) => (
                   <ItemJobInCompany {...job} />
@@ -70,9 +70,9 @@ const CompanyProfile = () => {
               </Box>
             </VStack>
 
-            <Box w={'30%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'} m={2}>
+            <Box bgColor={'white'} w={'30%'} borderWidth='1px' borderRadius='lg' overflow='hidden' boxShadow='md' align={'flex-start'}>
               <FormLabel fontWeight={'bold'} fontSize={18} w={'100%'} p={4}>
-                Company Contact{' '}
+                Thông tin liên hệ
               </FormLabel>
 
               <VStack p={3} w={'100%'} m={2}>

@@ -72,10 +72,10 @@ const TestAddForm = () => {
                 <HStack alignItems={'flex-start'} w={'100%'}>
                   <VStack w={'20%'}>
                     <Box backgroundColor={'#ffffff'} borderRadius={5} pl={4} alignContent={'center'} h={50} overflow={'hidden'} fontWeight={'bold'} fontSize={14} boxShadow={'lg'} w={'100%'}>
-                      Number of question: {test.questions.length}
+                      Số câu hỏi: {test.questions.length}
                     </Box>
                     <Box backgroundColor={'#ffffff'} borderRadius={5} pl={4} alignContent={'center'} h={50} overflow={'hidden'} fontWeight={'bold'} fontSize={14} boxShadow={'lg'} w={'100%'}>
-                      Start: {new Date(test.startTime).toLocaleString()}
+                      Thời gian làm bài:{test.time}
                     </Box>
                     <ImportExcel testID={test.id} load={load} setLoad={setLoad} />
                   </VStack>

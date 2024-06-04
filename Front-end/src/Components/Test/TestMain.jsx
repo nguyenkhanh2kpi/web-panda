@@ -24,22 +24,22 @@ export const TestMain = () => {
       .catch((error) => console.error(error))
   }, [])
 
-  const isTestStarted = () => {
-    if (test && test.startTime) {
-      const startTime = new Date(test.startTime).getTime()
-      const currentTime = new Date().getTime()
-      return currentTime >= startTime
-    }
-    return false
-  }
+  // const isTestStarted = () => {
+  //   if (test && test.startTime) {
+  //     const startTime = new Date(test.startTime).getTime()
+  //     const currentTime = new Date().getTime()
+  //     return currentTime >= startTime
+  //   }
+  //   return false
+  // }
 
-  const isNotEnded = () => {
-    if (test && test.endTime) {
-      const endTime = new Date(test.endTime).getTime()
-      const currentTime = new Date().getTime()
-      return currentTime <= endTime
-    }
-  }
+  // const isNotEnded = () => {
+  //   if (test && test.endTime) {
+  //     const endTime = new Date(test.endTime).getTime()
+  //     const currentTime = new Date().getTime()
+  //     return currentTime <= endTime
+  //   }
+  // }
 
   return (
     <>
@@ -51,19 +51,17 @@ export const TestMain = () => {
         <HStack align={'flex-start'} w={'60vw'} m={5} p={5}>
           {test != null ? (
             test.record === false ? (
-              isTestStarted() && isNotEnded() ? (
-                start === true ? (
+              <>
+                {start ? (
                   <></>
                 ) : (
                   <Button w={'100%'} size='lg' colorScheme='teal' onClick={() => setStart(true)}>
-                    Start taking the test
+                    Bắt đầu làm bài
                   </Button>
-                )
-              ) : (
-                <Button w={'100%'}>You are not in available time</Button>
-              )
+                )}
+              </>
             ) : (
-              <Button w={'100%'}>The test cannot be retaken</Button>
+              <Button w={'100%'}>Bài kiểm tra không thể thực hiện lại</Button>
             )
           ) : (
             <Button w={'100%'}>Loading...</Button>
@@ -133,27 +131,27 @@ const DoTest = ({ test }) => {
 
   const displayQuestion = test.questions.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
 
-  ///
-  const calculateTimeLeft = () => {
-    const endTime = new Date(test.endTime).getTime()
-    const now = new Date().getTime()
-    const timeDifference = endTime - now
-    const secondsLeft = Math.floor(timeDifference / 1000)
-    return secondsLeft
-  }
-
-  const initialSeconds = calculateTimeLeft()
-  const [minutes, setMinutes] = useState(Math.floor(initialSeconds / 60))
-  const [seconds, setSeconds] = useState(initialSeconds % 60)
-
+  // count
+  const initialSeconds = test.time * 60; 
+  const [minutes, setMinutes] = useState(Math.floor(initialSeconds / 60));
+  const [seconds, setSeconds] = useState(initialSeconds % 60);
   useEffect(() => {
     const timer = setInterval(() => {
-      const secondsLeft = calculateTimeLeft()
-      setSeconds(secondsLeft % 60)
-      setMinutes(Math.floor(secondsLeft / 60))
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      } else {
+        if (minutes > 0) {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        } else {
+          clearInterval(timer);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [minutes, seconds]);
+
 
   ///submit
   const handleConfirm = () => {
@@ -200,9 +198,9 @@ const DoTest = ({ test }) => {
         <div className='page' style={{ fontFamily: 'Montserrat', padding: '20px' }}>
           <div>
             <HStack w={'100%'} justifyContent='space-between'>
-              <Text>Test: {test.summary}</Text>
+              <Text>Bài test: {test.summary}</Text>
               <Text>
-                Page: {currentPage + 1}/{pageCount}
+                Trang: {currentPage + 1}/{pageCount}
               </Text>
             </HStack>
           </div>
@@ -238,8 +236,8 @@ const DoTest = ({ test }) => {
                 className='question-panigate1'
                 pageCount={pageCount}
                 onPageChange={handlePageChange}
-                previousLabel='prev'
-                nextLabel='next'
+                previousLabel='trang trước'
+                nextLabel='trang sau'
                 breakLabel='...'
                 breakClassName='page-item1'
                 breakLinkClassName='page-link1'

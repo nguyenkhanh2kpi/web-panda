@@ -139,6 +139,7 @@ const Navbar1 = () => {
                   <MenuItem onClick={() => navigate('/change-password')}>Đổi mật khẩu</MenuItem>
                   <MenuItem onClick={() => navigate('/messages')}>Tin nhắn</MenuItem>
                   <MenuItem onClick={() => navigate('/resume')}>Hồ sơ CV</MenuItem>
+                  <MenuItem onClick={() => navigate('/test')}>Kiểm tra sàng lọc</MenuItem>
                   <MenuItem onClick={() => handleLogout()}>Đăng xuất</MenuItem>
                 </MenuList>
               </Menu>

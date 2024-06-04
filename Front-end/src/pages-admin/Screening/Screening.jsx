@@ -31,6 +31,14 @@ import {
   BreadcrumbLink,
   CardBody,
   Card,
+  CardHeader,
+  Flex,
+  Avatar,
+  Heading,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
 } from '@chakra-ui/react'
 import { loadJob } from '../../redux/Job-posting/Action'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -42,6 +50,10 @@ import { testService } from '../../Service/test.service'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 import { jobService } from '../../Service/job.service'
+import { EmailIcon } from '@chakra-ui/icons'
+import { FaCode, FaPencilAlt, FaRegQuestionCircle } from 'react-icons/fa'
+import { BsThreeDotsVertical } from 'react-icons/bs'
+import { bgcolor } from '@mui/system'
 
 const Screening = () => {
   const params = useParams()
@@ -75,7 +87,16 @@ const Screening = () => {
             <BreadcrumbLink href='#'>Kiểm tra</BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
+      </HStack>
+      <HStack mb={3}>
         {job ? <AddTestForm jobId={job.id} load={load} setLoad={setLoad} /> : <></>}
+
+        <Button color={'white'} leftIcon={<FaPencilAlt />} backgroundColor={'rgb(3, 201, 215)'} variant='solid'>
+          Bài kiểm tra tự luận
+        </Button>
+        <Button color={'white'} leftIcon={<FaCode />} backgroundColor={'rgb(3, 201, 215)'} variant='solid'>
+          Kiểm tra code(dành cho ngành IT)
+        </Button>
       </HStack>
 
       {job ? (
@@ -109,19 +130,27 @@ const TestItem = ({ test, jobId, load, setLoad }) => {
       <HStack w={'100%'} mb={5} pl={30} pr={30}>
         <Card w={'100%'}>
           <CardBody>
-            <HStack>
-              <Image w={100} height={100} src='https://freedomtoteach.collins.co.uk/wp-content/uploads/sites/87/2023/03/shutterstock_397626016-1-scaled.jpg' />
-              <VStack>
-                <IconButton onClick={() => navigate(`/process/screening-test/${test.id}`)} backgroundColor={'#97E7E1'} icon={<AiOutlineEdit />} />
-                <IconButton backgroundColor={'#FEC7B4'} icon={<AiOutlineDelete />} />
-              </VStack>
-              <Box pl={30} w={'100%'}>
-                <Text>Test name: {test.summary}</Text>
-                <Text>
-                  From: {new Date(test.startTime).toLocaleString()} to {new Date(test.endTime).toLocaleString()}
-                </Text>
-              </Box>
-            </HStack>
+            <CardHeader>
+              <Flex spacing='4'>
+                <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
+                  <Avatar name='Question' src='https://img.icons8.com/?size=100&id=6651&format=png&color=000000' />
+
+                  <Box>
+                    <Heading fontFamily={'Montserrat'} size='sm'>
+                      Tên: {test.summary}
+                    </Heading>
+                    <Text>Thời gian làm bài {test.time} phút</Text>
+                  </Box>
+                </Flex>
+                <Menu>
+                  <MenuButton _hover={{bgcolor: "white"}} bgColor={'white'} as={Button} rightIcon={<BsThreeDotsVertical />} />
+                  <MenuList>
+                    <MenuItem onClick={() => navigate(`/process/screening-test/${test.id}`)} >Chỉnh sửa</MenuItem>
+                    <MenuItem>Xóa</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Flex>
+            </CardHeader>
           </CardBody>
         </Card>
       </HStack>
@@ -136,8 +165,7 @@ const AddTestForm = ({ jobId, load, setLoad }) => {
   const [form, setForm] = useState({
     jdId: jobId,
     summary: '',
-    startTime: '',
-    endTime: '',
+    time: '',
   })
 
   const handleChange = (e) => {
@@ -154,22 +182,17 @@ const AddTestForm = ({ jobId, load, setLoad }) => {
 
   const validateForm = () => {
     if (!form.summary) {
-      toast.error('Summary is required')
+      toast.error('Yêu cầu nhập tên')
       return false
     }
 
-    if (!form.startTime) {
-      toast.error('Start time is required')
+    if (!form.time) {
+      toast.error('Yêu cầu nhập thời gian làm bài')
       return false
     }
-
-    if (!form.endTime) {
-      toast.error('End time is required')
-      return false
-    }
-
     return true
   }
+
   const handleSubmit = () => {
     if (validateForm()) {
       testService
@@ -185,36 +208,32 @@ const AddTestForm = ({ jobId, load, setLoad }) => {
 
   return (
     <>
-      <Button ml={8} color='white' borderRadius={10} backgroundColor={'rgb(3, 201, 215)'} onClick={onOpen} mr={30}>
-        + new test
+      <Button ml={8} color={'white'} leftIcon={<FaRegQuestionCircle />} onClick={onOpen} backgroundColor={'rgb(3, 201, 215)'} variant='solid'>
+        Bài kiểm tra trắc nghiệm
       </Button>
       <Modal fontFamily={'Montserrat'} size={'2xl'} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent fontFamily={'Montserrat'}>
-          <ModalHeader>Add Test</ModalHeader>
+          <ModalHeader>Thêm bài kiểm tra trắc nghiệm</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
               <FormLabel>JD ID</FormLabel>
-              <Input type='number' name='jdId' value={form.jdId} onChange={handleChange} />
+              <Input disabled type='number' name='jdId' value={form.jdId} onChange={handleChange} />
             </FormControl>
             <FormControl>
-              <FormLabel>Summary</FormLabel>
+              <FormLabel>Tên</FormLabel>
               <Input type='text' name='summary' value={form.summary} onChange={handleChange} />
             </FormControl>
             <FormControl>
-              <FormLabel>Start Time</FormLabel>
-              <Input type='datetime-local' name='startTime' value={form.startTime} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>End Time</FormLabel>
-              <Input type='datetime-local' name='endTime' value={form.endTime} onChange={handleChange} />
+              <FormLabel>Thời gian làm bài (phút)</FormLabel>
+              <Input type='number' name='time' value={form.time} onChange={handleChange} min={1} max={200} />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
             <Button color='white' borderRadius={10} backgroundColor={'rgb(3, 201, 215)'} onClick={handleSubmit} mr={3}>
-              Save
+              Lưu
             </Button>
           </ModalFooter>
         </ModalContent>

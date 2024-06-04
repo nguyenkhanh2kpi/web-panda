@@ -113,7 +113,7 @@ export const ImportExcel = ({ testID, setLoad, load }) => {
       <Modal size={'4xl'} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent fontFamily={'Montserrat'}>
-          <ModalHeader>Import questions from the spreadsheet</ModalHeader>
+          <ModalHeader>Nhập câu hỏi từ bảng tính</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box style={{ borderCollapse: 'collapse' }} overflow={'auto'} {...getRootProps()} borderRadius={0} h={500} borderWidth={1} w={'100%'}>
@@ -141,11 +141,11 @@ export const ImportExcel = ({ testID, setLoad, load }) => {
                   <input {...getInputProps()} />
                   {isDragActive ? (
                     <Text ml={30} fontSize={20}>
-                      Drop the files here ...
+                      Thả tập tin vào đây...
                     </Text>
                   ) : (
                     <Text ml={180} mt={240} fontSize={20}>
-                      Drop some files here, or click to select files
+                      Thả một số file vào đây, hoặc click để chọn file
                     </Text>
                   )}
                 </>
@@ -154,13 +154,13 @@ export const ImportExcel = ({ testID, setLoad, load }) => {
           </ModalBody>
           <ModalFooter>
             <Button onClick={handleClick} color={'white'} backgroundColor={'#24e0a5'}>
-              Sample file <AiOutlineDownload />
+              Tệp mẫu <AiOutlineDownload />
             </Button>
             <Button ml={5} onClick={onClose}>
-              Close
+              Đóng
             </Button>
             <Button ml={5} color={'white'} backgroundColor='rgb(3, 201, 215)' onClick={handleUpload}>
-              Save
+              Lưu
             </Button>
           </ModalFooter>
           <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme='light' />

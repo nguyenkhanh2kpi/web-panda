@@ -5,22 +5,47 @@ import { jobService } from '../../Service/job.service'
 import ReactPaginate from 'react-paginate'
 import { dataService } from '../../Service/data.service'
 import { useNavigate } from 'react-router-dom'
+import { resumeService } from '../../Service/resume.service'
 
 export default function NewJob() {
+  const accessToken = localStorage.getItem('data') ? localStorage.getItem('data').access_token : null
+  const [resume, setResume] = useState(null)
+
+  if (accessToken) {
+    resumeService
+      .getMyResume(accessToken)
+      .then((response) => setResume(response))
+      .catch((er) => console.log(er.message))
+  }
+
   const navigate = useNavigate()
   const [jobs, setjobs] = useState([])
   useEffect(() => {
-    jobService
-      .getAllJob()
-      .then((response) => {
-        setjobs(response)
-        dataService
-          .postRelationJob(keyWords, response)
-          .then((res) => setFilterJob(res))
-          .catch((er) => console.log(er))
-      })
-      .then()
-  }, [])
+    if (resume != null && accessToken!=null) {
+      console.log('das', resume.applicationPosition)
+      jobService
+        .getAllJob()
+        .then((response) => {
+          setjobs(response)
+          dataService
+            .postRelationJob(resume.applicationPosition, response)
+            .then((res) => setFilterJob(res))
+            .catch((er) => console.log(er))
+        })
+        .then()
+    } else {
+      jobService
+        .getAllJob()
+        .then((response) => {
+          setjobs(response)
+          dataService
+            .postRelationJob(keyWords, response)
+            .then((res) => setFilterJob(res))
+            .catch((er) => console.log(er))
+        })
+        .then()
+    }
+  }, [resume,accessToken])
 
   let storedData = localStorage.getItem('keyw')
   const keyWords = JSON.parse(storedData).keyw
@@ -100,15 +125,7 @@ const SkeletonCard = () => {
   return (
     <>
       {skeletonArray.map((_, index) => (
-        <Card
-          key={index}
-          p={2}
-          h={[150, 100]}
-          direction={{ base: 'column', sm: 'row' }}
-          overflow='hidden'
-          variant='outline'
-          mb={4} 
-        >
+        <Card key={index} p={2} h={[150, 100]} direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline' mb={4}>
           <Skeleton borderWidth={1} borderRadius={10} w={[120, 90]} />
           <Stack>
             <CardBody>

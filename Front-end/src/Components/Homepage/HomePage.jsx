@@ -21,6 +21,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 const HomePage = () => {
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem('userInfo'))
+  
   const [search, setSearch] = useState({
     keyword: '',
     location: 'all',
